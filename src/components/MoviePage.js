@@ -4,29 +4,50 @@ import styled from 'styled-components';
 
 const TrailerPage = () => {
   const { movieId } = useParams();
-  const navigate = useNavigate(); // Hook to programmatically navigate
   const [trailerUrl, setTrailerUrl] = useState(null);
   const videoRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [error, setError] = useState(null);
   const [progress, setProgress] = useState(0);
+  const navigate = useNavigate(); // Hook to programmatically navigate
 
   useEffect(() => {
-    const viewIdT = localStorage.getItem('viewIdT');
-    if (!viewIdT) {
-      navigate('/'); // Redirect to Home page if no viewIdT
-    }
-
     const fetchTrailer = async () => {
-    
+      const storedToken = localStorage.getItem('token');
+      const storedExpiryDate = localStorage.getItem('expiryDate');
+      const viewId = localStorage.getItem('viewId');
+
+      // Check if token and expiryDate are valid
+      if (!storedToken || !storedExpiryDate) {
+        setError('Authentication details missing');
+        navigate('/');
+        
+        return;
+      }
+
+      const expiryDate = new Date(storedExpiryDate);
+      if (expiryDate < new Date()) {
+        setError('Token has expired');
+        navigate('/');
+        return;
+      }
+
+      // Use viewId if it exists, otherwise use movieId from params
+      const movieToFetch = viewId || movieId;
+
+      if (!movieToFetch) {
+        setError('Movie ID is undefined');
+        navigate('/');
+        return;
+      }
 
       try {
-        const response = await fetch(`https://api.indrajala.in/api/user/PlayTrailer/${viewIdT}`);
+        const response = await fetch(`https://api.indrajala.in/api/user/DeltaFetchMovie/${movieToFetch}`);
         if (!response.ok) {
           throw new Error('Failed to fetch trailer');
         }
         const data = await response.json();
-        const fullTrailerUrl = `https://api.indrajala.in/public${data.trailerVideo}`;
+        const fullTrailerUrl = `https://api.indrajala.in/public${data.movieVideo}`;
         setTrailerUrl(fullTrailerUrl);
       } catch (error) {
         setError('Error fetching trailer: ' + error.message);
@@ -34,7 +55,7 @@ const TrailerPage = () => {
     };
 
     fetchTrailer();
-  }, [movieId, navigate]); // Added navigate to dependencies
+  }, [movieId]);
 
   const handlePlayPause = () => {
     if (videoRef.current.paused) {
