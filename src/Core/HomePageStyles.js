@@ -23,22 +23,20 @@ export const MovieGridWrapper = styled.div`
   padding: ${({ isMobile }) => (isMobile ? '10px 5%' : '10px')};
   background: transparent;
   gap: 20px;
-  width: ${({ isMobile }) => (isMobile ? '90%' : '100%')};
-  max-width: 1200px;
-  margin: 0 auto;
+  width: 100%;
   height: ${({ isMobile }) => (isMobile ? 'calc(100vh - 100px)' : 'auto')};
   scroll-behavior: smooth;
 
   > div {
-    flex: ${({ isMobile }) => (isMobile ? '0 0 auto' : '1')};
-    max-width: ${({ isMobile, isTablet }) => (isMobile ? '100%' : isTablet ? '45%' : '30%')};
+    flex: ${({ isMobile, isTablet }) => (isMobile ? '0 0 auto' : isTablet ? '0 0 45%' : '0 0 calc(33.333% - 20px)')};
+    max-width: ${({ isMobile, isTablet }) => (isMobile ? '100%' : isTablet ? '45%' : 'calc(33.333% - 20px)')};
     width: ${({ isMobile }) => (isMobile ? '100%' : 'auto')};
     background: transparent;
     border: 1px solid #ff69b4;
     border-radius: 5px;
     color: #ffffff;
     padding: 10px;
-    margin-bottom: ${({ isMobile }) => (isMobile ? '20px' : '0')};
+    margin-bottom: ${({ isMobile }) => (isMobile ? '20px' : '20px')};
     
     ${({ isMobile }) => isMobile && `
       display: flex;
@@ -60,6 +58,27 @@ export const MovieGridWrapper = styled.div`
       
       p {
         display: none;
+      }
+    `}
+
+    ${({ isMobile, isTablet }) => !isMobile && !isTablet && `
+      display: flex;
+      flex-direction: column;
+      
+      img {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+        border-radius: 5px;
+      }
+      
+      h3 {
+        margin-top: 10px;
+        font-size: 1.2em;
+      }
+      
+      p {
+        margin-top: 5px;
       }
     `}
   }
