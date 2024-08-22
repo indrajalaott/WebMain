@@ -1,8 +1,17 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import styled, { keyframes } from 'styled-components';
 
 const LandingPage = () => {
+  const navigate = useNavigate(); // Initialize navigate
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      navigate('/Home'); // Redirect to /Home if token is present
+    }
+  }, [navigate]);
+
   return (
     <Container>
       <NavBar>
@@ -17,10 +26,10 @@ const LandingPage = () => {
         <GetStartedButton to="/register">Get Started</GetStartedButton>
       </Content>
       <Footer>
-        <FooterLink href="https://policy.indrajala.in/Terms-of-Usage">Terms and Usage</FooterLink>
-        <FooterLink href="https://policy.indrajala.in/Data-Policy">Data Policy</FooterLink>
-        <FooterLink href="https://policy.indrajala.in/Refund-Policy">Refund Policy</FooterLink>
-        <FooterLink href="https://policy.indrajala.in">Detailed Policy Page</FooterLink>
+        <FooterLink href="https://policy.indrajala.in/Terms-of-Usage" target="_blank" rel="noopener noreferrer">Terms and Usage</FooterLink>
+        <FooterLink href="https://policy.indrajala.in/Data-Policy" target="_blank" rel="noopener noreferrer">Data Policy</FooterLink>
+        <FooterLink href="https://policy.indrajala.in/Refund-Policy" target="_blank" rel="noopener noreferrer">Refund Policy</FooterLink>
+        <FooterLink href="https://policy.indrajala.in" target="_blank" rel="noopener noreferrer">Detailed Policy Page</FooterLink>
         <FooterText>© 2024, All rights reserved, Indrajala Movie Makers LLP</FooterText>
       </Footer>
     </Container>

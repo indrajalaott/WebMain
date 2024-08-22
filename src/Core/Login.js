@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import './LoginPage.css'; // Import the CSS file
 
@@ -8,9 +8,17 @@ const LoginPage = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
+  // Check for token in localStorage on component mount
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      navigate('/Home');
+    }
+  }, [navigate]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     try {
       const response = await fetch('https://api.indrajala.in/api/user/login', {
         method: 'POST',
@@ -22,15 +30,15 @@ const LoginPage = () => {
           password,
         }),
       });
-  
+
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
-  
+
       const data = await response.json();
       
       console.log('API Response:', data); // Log the response for debugging
-  
+
       // Ensure the token and expiryDate are in the response
       if (data.token && data.expiryDate) {
         localStorage.setItem('token', data.token);
