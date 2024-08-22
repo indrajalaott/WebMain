@@ -10,33 +10,34 @@ export const Container = styled.div`
 export const Title = styled.h1`
   text-align: center;
   color: #ffffff;
-  margin-bottom: 20px;
+  margin-bottom: ${({ isMobile }) => (isMobile ? '10px' : '20px')};
 `;
 
 export const MovieGridWrapper = styled.div`
   display: flex;
-  justify-content: ${({ isMobile, isTablet }) => (isMobile ? 'flex-start' : isTablet ? 'space-around' : 'space-between')};
+  justify-content: ${({ isMobile, isTablet }) => (isMobile ? 'center' : isTablet ? 'space-around' : 'space-between')};
   align-items: ${({ isMobile }) => (isMobile ? 'center' : 'flex-start')};
   flex-direction: ${({ isMobile }) => (isMobile ? 'column' : 'row')};
   flex-wrap: ${({ isMobile }) => (isMobile ? 'nowrap' : 'wrap')};
   overflow-y: ${({ isMobile }) => (isMobile ? 'auto' : 'unset')};
-  padding: ${({ isMobile }) => (isMobile ? '10px 5%' : '10px')};
+  padding: ${({ isMobile }) => (isMobile ? '5px' : '10px')};
   background: transparent;
-  gap: 20px;
-  width: 100%;
-  height: ${({ isMobile }) => (isMobile ? 'calc(100vh - 100px)' : 'auto')};
+  gap: ${({ isMobile }) => (isMobile ? '10px' : '20px')};
+  width: ${({ isMobile }) => (isMobile ? '90%' : '100%')};
+  margin: ${({ isMobile }) => (isMobile ? '0 auto' : '0')};
+  height: ${({ isMobile }) => (isMobile ? 'calc(100vh - 80px)' : 'auto')};
   scroll-behavior: smooth;
 
   > div {
     flex: ${({ isMobile, isTablet }) => (isMobile ? '0 0 auto' : isTablet ? '0 0 45%' : '0 0 calc(33.333% - 20px)')};
-    max-width: ${({ isMobile, isTablet }) => (isMobile ? '100%' : isTablet ? '45%' : 'calc(33.333% - 20px)')};
-    width: ${({ isMobile }) => (isMobile ? '100%' : 'auto')};
+    max-width: ${({ isMobile, isTablet }) => (isMobile ? '90%' : isTablet ? '45%' : 'calc(33.333% - 20px)')};
+    width: ${({ isMobile }) => (isMobile ? '90%' : 'auto')};
     background: transparent;
     border: 1px solid #ff69b4;
     border-radius: 5px;
     color: #ffffff;
     padding: 10px;
-    margin-bottom: ${({ isMobile }) => (isMobile ? '20px' : '20px')};
+    margin-bottom: ${({ isMobile }) => (isMobile ? '15px' : '20px')};
     
     ${({ isMobile }) => isMobile && `
       display: flex;
@@ -51,9 +52,9 @@ export const MovieGridWrapper = styled.div`
       }
       
       h3 {
-        margin-top: 10px;
+        margin-top: 8px;
         text-align: center;
-        font-size: 1.2em;
+        font-size: 1.1em;
       }
       
       p {
