@@ -1,0 +1,84 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+  }
+  
+  .login-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Full viewport height */
+    background: linear-gradient(to bottom, #ffcccb, #ff99cc); /* Pink gradient background */
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+  }
+  
+  h1 {
+    color: #d5006d; /* Darker pink for the heading */
+  }
+  
+  .error-message {
+    color: red;
+    margin-bottom: 15px;
+  }
+  
+  .login-form {
+    width: 100%;
+    max-width: 400px; /* Limit the width of the form */
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 5px;
+    color: #333;
+  }
+  
+  input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  input:focus {
+    border-color: #d5006d; /* Pink border on focus */
+    outline: none;
+  }
+  
+  .login-button {
+    width: 100%;
+    padding: 10px;
+    background-color: #d5006d; /* Pink button */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .login-button:hover {
+    background-color: #c51162; /* Darker pink on hover */
+  }
+  
+  .register-link,
+  .forgot-password-link {
+    color: #d5006d;
+    text-decoration: none;
+  }
+  
+  .register-link:hover,
+  .forgot-password-link:hover {
+    text-decoration: underline;
+  }
