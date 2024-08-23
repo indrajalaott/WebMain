@@ -6,9 +6,24 @@ const LandingPage = () => {
   const navigate = useNavigate(); // Initialize navigate
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      navigate('/Home'); // Redirect to /Home if token is present
+    // Extract the JWT and expiry date from the URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const token = urlParams.get('jwt');
+    const expiryDate = urlParams.get('exp');
+
+    if (token && expiryDate) {
+      // Save the token and expiry date to localStorage
+      localStorage.setItem('token', token);
+      localStorage.setItem('expiryDate', expiryDate);
+
+      // Redirect to /Home if token and expiry date are present
+      navigate('/Home');
+    } else {
+      // Check if token is already stored in localStorage
+      const storedToken = localStorage.getItem('token');
+      if (storedToken) {
+        navigate('/Home');
+      }
     }
   }, [navigate]);
 
@@ -38,6 +53,7 @@ const LandingPage = () => {
 
 export default LandingPage;
 
+// Styles remain the same
 const fadeIn = keyframes`
   from {
     opacity: 0;
