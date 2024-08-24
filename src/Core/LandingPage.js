@@ -25,6 +25,7 @@ const LandingPage = () => {
         navigate('/Home');
       }
     }
+    
   }, [navigate]);
 
   return (
