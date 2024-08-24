@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import HomePage from './Core/HomePage';
 import Login from './Core/Login';
 import RegisterPage from './Core/RegisterPage';
+import ForgotPassword from './Core/ForgotPassword';
 import MoviePage from './components/MoviePage';
 import MovieDetailPage from './components/MovieDetailPage';
 import TrailerPage from './components/TrailerPage';
@@ -24,6 +25,7 @@ const App = () => {
           <Route path="/login" exact element={<Login />} />
           <Route path="/register" exact element={<RegisterPage />} />
           <Route path="/Movie/" element={<MoviePage />} />
+          <Route path="/Forgot" element={<ForgotPassword />} />
           <Route path="/forgot-password" exact element={<RegisterPage />} />  {/* Forgot Password Route need to be changed */}
           
 
