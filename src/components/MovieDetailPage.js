@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useParams, useNavigate } from 'react-router-dom';
-import { FaPlay } from 'react-icons/fa'; // Importing play icon from react-icons
+import { FaPlay, FaCrown } from 'react-icons/fa'; // Added FaCrown for the premium icon
 
 const MovieDetailPage = () => {
   const { url } = useParams();
@@ -43,7 +43,7 @@ const MovieDetailPage = () => {
 
     fetchMovieDetails();
     checkTokenExpiration();
-  }, [url]);
+  }, [url, navigate]);
 
   if (!movie) return <Loading>Loading...</Loading>;
 
@@ -65,8 +65,12 @@ const MovieDetailPage = () => {
     }
   };
 
+  const handlePurchasePremium = () => {
+    // Redirect to the Indrajala orders page
+    window.location.href = 'https://orders.indrajala.in/';
+  };
+
   const isExpired = expiryDate && expiryDate < new Date();
-  const isTodayOrFuture = expiryDate && expiryDate >= new Date();
 
   return (
     <Container>
@@ -91,9 +95,14 @@ const MovieDetailPage = () => {
         <Starring>Starring: {movie.starring.join(', ')}</Starring>
         <ButtonContainer>
           {(!token || isExpired) ? (
-            <Button onClick={handleViewTrailer}>
-              <FaPlay style={{ marginRight: '8px' }} /> View Trailer
-            </Button>
+            <>
+              <Button onClick={handleViewTrailer}>
+                <FaPlay style={{ marginRight: '8px' }} /> View Trailer
+              </Button>
+              <Button onClick={handlePurchasePremium} isPremium>
+                <FaCrown style={{ marginRight: '8px' }} /> Purchase Premium
+              </Button>
+            </>
           ) : (
             <Button onClick={handleViewMovie}>
               <FaPlay style={{ marginRight: '8px' }} /> View Movie
@@ -115,7 +124,7 @@ const Container = styled.div`
   font-family: 'Times New Roman', Times, serif;
 
   @media (max-width: 768px) {
-    padding: 8px; /* Adjust padding for mobile screens */
+    padding: 8px;
   }
 `;
 
@@ -125,7 +134,7 @@ const ImageContainer = styled.div`
   border: 2px solid #fff;
 
   @media (max-width: 768px) {
-    margin-bottom: 16px; /* Space between image and content on mobile */
+    margin-bottom: 16px;
   }
 `;
 
@@ -134,7 +143,7 @@ const Image = styled.img`
   height: auto;
 
   @media (max-width: 768px) {
-    content: ${({ smallSrc }) => `url(${smallSrc})`}; /* Use small image on mobile */
+    content: ${({ smallSrc }) => `url(${smallSrc})`};
   }
 `;
 
@@ -144,117 +153,122 @@ const Logo = styled.img`
   transform: translate(0%, -50%);
   width: 30%;
   height: auto;
-  top: 25%; /* Adjusted position */
+  top: 25%;
 
   @media (max-width: 768px) {
-    top: 20%; /* Adjust logo position for mobile */
+    top: 20%;
   }
 `;
 
 const DetailsContainer = styled.div`
   @media (max-width: 768px) {
-    position: static; /* Content is outside the image on mobile */
+    position: static;
     width: 100%;
-    text-align: center; /* Center-align content on mobile */
+    text-align: center;
   }
 
   position: absolute;
-  top: 50%; /* Align content directly below the logo */
-  left: 7%; /* Spacing from left */
-  width: 90%; /* Adjust width for mobile responsiveness */
-  max-width: 600px; /* Set a max width for the details container */
-  margin: 0 auto; /* Center the container */
-  text-align: left; /* Align text to the left */
+  top: 50%;
+  left: 7%;
+  width: 90%;
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: left;
 `;
 
 const Title = styled.h2`
   margin: 0;
-  font-weight: bold; /* Make title bold */
+  font-weight: bold;
 
   @media (max-width: 768px) {
-    font-size: 24px; /* Adjust font size for mobile */
+    font-size: 24px;
   }
 `;
 
 const InfoRow = styled.div`
   display: flex;
-  align-items: center; /* Center align items vertically */
-  margin: 12px 0; /* Increased spacing between lines */
+  align-items: center;
+  margin: 12px 0;
 
   @media (max-width: 768px) {
-    flex-direction: column; /* Stack items vertically on mobile */
-    align-items: flex-start; /* Align items to the start */
+    flex-direction: column;
+    align-items: flex-start;
   }
 `;
 
 const Rating = styled.p`
   margin: 0;
   @media (max-width: 768px) {
-    margin-bottom: 8px; /* Spacing between items on mobile */
+    margin-bottom: 8px;
   }
 `;
 
 const Duration = styled.p`
   margin: 0;
   @media (max-width: 768px) {
-    margin-bottom: 8px; /* Spacing between items on mobile */
+    margin-bottom: 8px;
   }
 `;
 
 const AgeLimit = styled.p`
   margin: 0;
   @media (max-width: 768px) {
-    margin-bottom: 8px; /* Spacing between items on mobile */
+    margin-bottom: 8px;
   }
 `;
 
 const Separator = styled.span`
-  margin: 0 8px; /* Spacing between the items */
+  margin: 0 8px;
 
   @media (max-width: 768px) {
-    display: none; /* Hide the separator on mobile */
+    display: none;
   }
 `;
 
 const Description = styled.p`
-  margin: 12px 0; /* Increased spacing for description */
-  font-weight: bold; /* Make description bold */
+  margin: 12px 0;
+  font-weight: bold;
 `;
 
 const Starring = styled.p`
-  margin: 12px 0; /* Increased spacing for starring */
-  /* No font-weight: bold; to keep it normal */
+  margin: 12px 0;
 `;
 
 const ButtonContainer = styled.div`
   display: flex;
-  justify-content: flex-start; /* Align button to the left */
+  justify-content: flex-start;
   margin-top: 16px;
+  gap: 16px; // Add space between buttons
 
   @media (max-width: 768px) {
-    justify-content: center; /* Center buttons on mobile */
+    justify-content: center;
+    flex-direction: column; // Stack buttons vertically on mobile
+    align-items: center;
   }
 `;
 
 const Button = styled.button`
-  padding: 14px 40px; /* Increased padding for a larger button */
-  background-color: #007bff;
-  color: white;
+  padding: 14px 40px;
+  background-color: ${props => props.isPremium ? '#ffd700' : '#007bff'};
+  color: ${props => props.isPremium ? '#000' : '#fff'};
   border: none;
   border-radius: 5px;
   cursor: pointer;
   display: flex;
-  align-items: center; /* Align items vertically center */
-  font-size: 16px; /* Increased font size for better visibility */
-  transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+  align-items: center;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
 
   &:hover {
-    background-color: #0056b3; /* Darker shade on hover */
+    background-color: ${props => props.isPremium ? '#ffcc00' : '#0056b3'};
   }
 
   @media (max-width: 768px) {
-    padding: 10px 20px; /* Adjust padding for mobile */
-    font-size: 14px; /* Adjust font size for mobile */
+    padding: 10px 20px;
+    font-size: 14px;
+    width: 100%; // Full width on mobile
+    justify-content: center;
+    margin-bottom: 10px; // Add space between buttons when stacked
   }
 `;
 
