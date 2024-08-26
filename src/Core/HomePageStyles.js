@@ -1,103 +1,112 @@
-// HomePageStyles.js
-import styled from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
+
+export const GlobalStyle = createGlobalStyle`
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #000000;
+    color: #ffffff;
+  }
+`;
 
 export const Container = styled.div`
+  min-height: 100vh;
   padding: 20px;
   background: linear-gradient(to bottom, #000000 50%, #ff69b4 100%);
-  min-height: 100vh;
 `;
 
 export const Title = styled.h1`
   text-align: center;
   color: #ffffff;
-  margin-bottom: ${({ isMobile }) => (isMobile ? '10px' : '20px')};
+  margin-bottom: 30px;
+  font-size: ${({ isMobile }) => (isMobile ? '1.5em' : '2em')};
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 `;
 
 export const MovieGridWrapper = styled.div`
-  display: flex;
-  justify-content: ${({ isMobile, isTablet }) => (isMobile ? 'center' : isTablet ? 'space-around' : 'space-between')};
-  align-items: ${({ isMobile }) => (isMobile ? 'center' : 'flex-start')};
-  flex-direction: ${({ isMobile }) => (isMobile ? 'column' : 'row')};
-  flex-wrap: ${({ isMobile }) => (isMobile ? 'nowrap' : 'wrap')};
-  overflow-y: ${({ isMobile }) => (isMobile ? 'auto' : 'unset')};
-  padding: ${({ isMobile }) => (isMobile ? '5px' : '10px')};
-  background: transparent;
-  gap: ${({ isMobile }) => (isMobile ? '10px' : '20px')};
-  width: ${({ isMobile }) => (isMobile ? '90%' : '100%')};
-  margin: ${({ isMobile }) => (isMobile ? '0 auto' : '0')};
-  height: ${({ isMobile }) => (isMobile ? 'calc(100vh - 80px)' : 'auto')};
-  scroll-behavior: smooth;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+`;
 
-  > div {
-    flex: ${({ isMobile, isTablet }) => (isMobile ? '0 0 auto' : isTablet ? '0 0 45%' : '0 0 calc(33.333% - 20px)')};
-    max-width: ${({ isMobile, isTablet }) => (isMobile ? '90%' : isTablet ? '45%' : 'calc(33.333% - 20px)')};
-    width: ${({ isMobile }) => (isMobile ? '90%' : 'auto')};
-    background: transparent;
-    border: 1px solid #ff69b4;
-    border-radius: 5px;
-    color: #ffffff;
-    padding: 10px;
-    margin-bottom: ${({ isMobile }) => (isMobile ? '15px' : '20px')};
-    
-    ${({ isMobile }) => isMobile && `
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      
-      img {
-        width: 100%;
-        height: auto;
-        object-fit: cover;
-        border-radius: 5px;
-      }
-      
-      h3 {
-        margin-top: 8px;
-        text-align: center;
-        font-size: 1.1em;
-      }
-      
-      p {
-        display: none;
-      }
-    `}
-
-    ${({ isMobile, isTablet }) => !isMobile && !isTablet && `
-      display: flex;
-      flex-direction: column;
-      
-      img {
-        width: 100%;
-        height: auto;
-        object-fit: cover;
-        border-radius: 5px;
-      }
-      
-      h3 {
-        margin-top: 10px;
-        font-size: 1.2em;
-      }
-      
-      p {
-        margin-top: 5px;
-      }
-    `}
+export const MovieGridContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+  
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
   }
 
-  &::-webkit-scrollbar {
-    width: 8px;
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(3, 1fr);
   }
+`;
 
-  &::-webkit-scrollbar-thumb {
-    background-color: rgba(255, 255, 255, 0.5);
-    border-radius: 4px;
+export const MovieItem = styled.div`
+  background-color: rgba(255, 105, 180, 0.1);
+  border: 1px solid #ff69b4;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+
+  &:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(255, 105, 180, 0.4);
   }
+`;
 
-  &::-webkit-scrollbar-track {
-    background-color: rgba(0, 0, 0, 0.1);
-    border-radius: 4px;
-  }
+export const MovieImage = styled.img`
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+`;
 
-  -ms-overflow-style: scrollbar;
-  scrollbar-width: thin;
+export const MovieInfo = styled.div`
+  padding: 15px;
+  color: white;  // Changed to white
+`;
+
+export const MovieTitle = styled.h3`
+  font-size: 1.2em;
+  margin-bottom: 10px;
+  color: white;  // Changed to white
+`;
+
+export const MovieRating = styled.span`
+  font-size: 1em;
+  color: #ffff00;
+  margin-left: 10px;
+`;
+
+export const MovieCategory = styled.p`
+  font-size: 0.9em;
+  color: white;  // Changed to white
+  margin-bottom: 5px;
+`;
+
+export const LoadingMessage = styled.div`
+  text-align: center;
+  font-size: 1.2em;
+  color: #ff69b4;
+  margin-top: 50px;
+`;
+
+export const ErrorMessage = styled.div`
+  text-align: center;
+  font-size: 1.2em;
+  color: #ff4444;
+  margin-top: 50px;
+`;
+// In HomePageStyles.js
+export const MovieDescription = styled.p`
+  font-size: 14px;
+  color: white;  // Changed to white
+  margin: 8px 0;
+  line-height: 1.4;
 `;
