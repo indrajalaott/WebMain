@@ -1,15 +1,24 @@
-:root {
+.indrajala-page {
+    /* Reset styles for this page */
+    all: initial;
+    /* Ensure the page takes full height */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .indrajala-page * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  .indrajala-page {
     --primary-color: #ff0000;
     --secondary-color: #ff3333;
     --background-color: #000000;
     --text-color: #ffffff;
     --accent-color: #ff6666;
-  }
-  
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
   }
   
   @keyframes gradientBG {
@@ -35,7 +44,7 @@
     }
   }
   
-  body {
+  .indrajala-page {
     font-family: 'Arial', sans-serif;
     background: linear-gradient(45deg, #000000, #1a0000, #330000, #1a0000);
     background-size: 400% 400%;
@@ -45,7 +54,7 @@
     overflow-x: hidden;
   }
   
-  .app {
+  .indrajala-page .app {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
@@ -53,7 +62,7 @@
     position: relative;
   }
   
-  .app::before {
+  .indrajala-page .app::before {
     content: '';
     position: absolute;
     top: 0;
@@ -65,12 +74,12 @@
     z-index: -1;
   }
   
-  header {
+  .indrajala-page header {
     text-align: center;
     margin-bottom: 2rem;
   }
   
-  h1 {
+  .indrajala-page h1 {
     font-size: 5rem;
     color: var(--primary-color);
     text-transform: uppercase;
@@ -79,7 +88,7 @@
     animation: pulse 2s infinite;
   }
   
-  main {
+  .indrajala-page main {
     flex-grow: 1;
     display: flex;
     flex-direction: column;
@@ -88,7 +97,7 @@
     text-align: center;
   }
   
-  .main-message {
+  .indrajala-page .main-message {
     font-size: 3.5rem;
     margin-bottom: 1rem;
     color: var(--secondary-color);
@@ -96,7 +105,7 @@
     animation: fadeInUp 1s ease-out;
   }
   
-  .sub-message {
+  .indrajala-page .sub-message {
     font-size: 2.5rem;
     margin-bottom: 2rem;
     background: linear-gradient(45deg, var(--text-color), var(--accent-color));
@@ -105,7 +114,7 @@
     animation: fadeInUp 1s ease-out 0.3s both;
   }
   
-  .tagline {
+  .indrajala-page .tagline {
     font-size: 2rem;
     font-style: italic;
     margin-bottom: 2rem;
@@ -114,14 +123,14 @@
     animation: fadeInUp 1s ease-out 0.6s both;
   }
   
-  .coming-soon {
+  .indrajala-page .coming-soon {
     font-size: 1.5rem;
     animation: fadeInUp 1s ease-out 0.9s both;
     position: relative;
     display: inline-block;
   }
   
-  .coming-soon::after {
+  .indrajala-page .coming-soon::after {
     content: '';
     position: absolute;
     bottom: -5px;
@@ -133,11 +142,11 @@
     transition: transform 0.3s ease-out;
   }
   
-  .coming-soon:hover::after {
+  .indrajala-page .coming-soon:hover::after {
     transform: scaleX(1);
   }
   
-  footer {
+  .indrajala-page footer {
     text-align: center;
     margin-top: 2rem;
     font-size: 1rem;
@@ -147,56 +156,55 @@
   }
   
   @media (max-width: 768px) {
-    h1 {
+    .indrajala-page h1 {
       font-size: 3.5rem;
     }
   
-    .main-message {
+    .indrajala-page .main-message {
       font-size: 2.5rem;
     }
   
-    .sub-message {
+    .indrajala-page .sub-message {
       font-size: 1.8rem;
     }
   
-    .tagline {
+    .indrajala-page .tagline {
       font-size: 1.5rem;
     }
   
-    .coming-soon {
+    .indrajala-page .coming-soon {
       font-size: 1.2rem;
     }
   }
   
   @media (max-width: 480px) {
-    h1 {
+    .indrajala-page h1 {
       font-size: 2.5rem;
     }
   
-    .main-message {
+    .indrajala-page .main-message {
       font-size: 2rem;
     }
   
-    .sub-message {
+    .indrajala-page .sub-message {
       font-size: 1.5rem;
     }
   
-    .tagline {
+    .indrajala-page .tagline {
       font-size: 1.2rem;
     }
   
-    .coming-soon {
+    .indrajala-page .coming-soon {
       font-size: 1rem;
     }
   }
   
-  /* Add this for a more immersive experience */
   @media (min-width: 1024px) {
-    .app {
+    .indrajala-page .app {
       perspective: 1000px;
     }
   
-    main {
+    .indrajala-page main {
       transform-style: preserve-3d;
       animation: float 6s ease-in-out infinite;
     }
