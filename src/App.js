@@ -9,6 +9,7 @@ import MoviePage from './components/MoviePage';
 import ResetPasswordPage from './Core/ResetPasswordPage';
 import MovieDetailPage from './components/MovieDetailPage';
 import TrailerPage from './components/TrailerPage';
+import Indrajala from './Core/Indrajala';
 import { ThemeProvider } from 'styled-components';
 import theme from './StyleSheets/theme';
 import LandingPage from './Core/LandingPage';
@@ -19,16 +20,25 @@ const App = () => {
       <Router>
         <Routes>
           <Route path="/" exact element={<LandingPage />} />
-          <Route path="/Home" exact element={<HomePage />} />
           <Route path="/reset-password" exact element={<ResetPasswordPage />} />
-          <Route path="/movie/:url" element={<MovieDetailPage />} />
-          <Route path="/trailer/*" element={<TrailerPage />} /> {/* Use wildcard for trailer */}
-          <Route path="/trailer/:movieId" element={<TrailerPage />} />
           <Route path="/login" exact element={<Login />} />
           <Route path="/register" exact element={<RegisterPage />} />
-          <Route path="/Movie/" element={<MoviePage />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
-         
+
+          <Route path="/Home" exact element={<Indrajala />} />
+          <Route path="*" element={<Indrajala />} />
+          {
+            /*
+            
+            <Route path="/Movie/" element={<MoviePage />} />
+          <Route path="/movie/:url" element={<MovieDetailPage />} />
+          <Route path="/trailer/*" element={<TrailerPage />} /> 
+          <Route path="/trailer/:movieId" element={<TrailerPage />} />
+
+          Commenting Routes
+            */
+          }
+          
           
 
         </Routes>
