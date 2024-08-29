@@ -1,84 +1,127 @@
 body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-  }
-  
+  margin: 0;
+  font-family: 'Arial', sans-serif;
+  background: #121212;
+  color: #e0e0e0;
+}
+
+.login-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(to bottom, #1e1e1e, #333);
+  padding: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  border-radius: 15px;
+}
+
+h1 {
+  color: #f44336;
+  margin-bottom: 20px;
+  font-size: 2.5rem;
+}
+
+.error-message {
+  color: #f44336;
+  margin-bottom: 20px;
+  font-size: 0.875rem;
+}
+
+.login-form {
+  width: 100%;
+  max-width: 500px;
+  background: #1e1e1e;
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.5);
+}
+
+.form-group {
+  margin-bottom: 20px;
+  display: flex;
+  color: #ffffff;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  color: #ffffff; /* Changed to white color for visibility */
+  font-size: 0.875rem;
+}
+
+input {
+  width: 85%; /* Reduced width to 85% */
+  padding: 12px;
+  border: 1px solid #444;
+  border-radius: 8px;
+  background: #333;
+  color: #e0e0e0;
+  font-size: 1rem;
+  margin: 0 auto; /* Center the input within the form group */
+}
+
+input:focus {
+  border-color: #f44336;
+  outline: none;
+  box-shadow: 0 0 5px rgba(244, 67, 54, 0.5);
+}
+
+.login-button {
+  width: 25%; /* Reduced width to 25% */
+  padding: 10px;
+  background-color: #f44336;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  align-self: center;
+}
+
+.login-button:hover {
+  background-color: #d32f2f;
+  transform: translateY(-1px);
+}
+
+.register-link,
+.forgot-password-link {
+  display: block;
+  margin-top: 15px;
+  color: #f44336;
+  text-decoration: none;
+  font-size: 0.875rem;
+}
+
+.register-link:hover,
+.forgot-password-link:hover {
+  text-decoration: underline;
+}
+
+/* Media query for mobile responsiveness */
+@media (max-width: 768px) {
   .login-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh; /* Full viewport height */
-    background: linear-gradient(to bottom, #ffcccb, #ff99cc); /* Pink gradient background */
-    padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
+    padding: 10px; /* Adjust padding for smaller screens */
   }
-  
-  h1 {
-    color: #d5006d; /* Darker pink for the heading */
-  }
-  
-  .error-message {
-    color: red;
-    margin-bottom: 15px;
-  }
-  
+
   .login-form {
-    width: 100%;
-    max-width: 400px; /* Limit the width of the form */
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    padding: 20px; /* Adjust form padding for smaller screens */
   }
-  
-  .form-group {
-    margin-bottom: 15px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+
+  h1 {
+    font-size: 2rem; /* Reduce font size for heading */
   }
-  
-  label {
-    display: block;
-    margin-bottom: 5px;
-    color: #333;
-  }
-  
+
   input {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    width: 100%; /* Full width for input fields on mobile */
+    padding: 10px; /* Adjust padding for input fields on mobile */
   }
-  
-  input:focus {
-    border-color: #d5006d; /* Pink border on focus */
-    outline: none;
-  }
-  
+
   .login-button {
-    width: 100%;
-    padding: 10px;
-    background-color: #d5006d; /* Pink button */
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+    width: 100%; /* Full width for the button on mobile */
   }
-  
-  .login-button:hover {
-    background-color: #c51162; /* Darker pink on hover */
-  }
-  
-  .register-link,
-  .forgot-password-link {
-    color: #d5006d;
-    text-decoration: none;
-  }
-  
-  .register-link:hover,
-  .forgot-password-link:hover {
-    text-decoration: underline;
-  }
+}

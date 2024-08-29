@@ -59,7 +59,7 @@ const LoginPage = () => {
       {error && <div className="error-message">{error}</div>}
       <form onSubmit={handleSubmit} className="login-form">
         <div className="form-group">
-          <label htmlFor="email">Email:</label>
+        <label htmlFor="email" style={{ color: '#ffffff' }}>Email:</label>
           <input
             type="email"
             id="email"
@@ -69,7 +69,7 @@ const LoginPage = () => {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="password">Password:</label>
+        <label htmlFor="password" style={{ color: '#ffffff' }}>Password:</label>
           <input
             type="password"
             id="password"
