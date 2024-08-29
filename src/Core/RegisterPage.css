@@ -1,82 +1,107 @@
 body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-  }
-  
-  .register-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh; /* Full viewport height */
-    background: linear-gradient(to bottom, #ffcccb, #ff99cc); /* Pink gradient background */
-    padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-  }
-  
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #111; /* Dark black background for the body */
+}
+
+.register-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Full viewport height */
+  background: linear-gradient(to bottom, #000, #111); /* Dark black gradient background */
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+  border-radius: 10px;
+}
+
+h1 {
+  color: #f00; /* Bright red for the heading */
+  font-size: 2rem; /* Responsive heading size */
+}
+
+.error-message {
+  color: #f00; /* Bright red for error message */
+  margin-bottom: 15px;
+}
+
+.register-form {
+  width: 100%;
+  max-width: 600px; /* Increased width of the form */
+  min-height: 400px; /* Minimum height for the form */
+  background: #222; /* Dark gray background for the form */
+  padding: 50px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+  display: flex; /* Flexbox for better layout */
+  flex-direction: column; /* Stack form elements */
+}
+
+.form-group {
+  margin-bottom: 25px; /* Increased margin for better spacing */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Align items to the left */
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  color: #f00; /* Bright red for the labels */
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #333; /* Dark gray border for inputs */
+  border-radius: 5px;
+  font-size: 1rem;
+  background-color: #333; /* Dark gray input background */
+  color: #ccc; /* Light gray text for inputs */
+}
+
+input:focus {
+  border-color: #f00; /* Red border on focus */
+  outline: none;
+}
+
+.register-button {
+  width: 100%;
+  padding: 12px;
+  background-color: #f00; /* Red button */
+  color: #111; /* Dark black text for button */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.register-button:hover {
+  background-color: #c00; /* Darker red on hover */
+}
+
+.login-link {
+  color: #f00;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.login-link:hover {
+  text-decoration: underline;
+}
+
+/* Media Queries for responsive design */
+@media (max-width: 600px) {
   h1 {
-    color: #d5006d; /* Darker pink for the heading */
+      font-size: 1.5rem; /* Smaller heading on mobile */
   }
-  
-  .error-message {
-    color: red;
-    margin-bottom: 15px;
+
+  .register-container {
+      padding: 15px; /* Reduced padding on mobile */
   }
-  
-  .register-form {
-    width: 100%;
-    max-width: 400px; /* Limit the width of the form */
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  }
-  
-  .form-group {
-    margin-bottom: 15px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start; /* Align items to the left */
-  }
-  
-  label {
-    display: block;
-    margin-bottom: 5px;
-    color: #333;
-  }
-  
-  input {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  
-  input:focus {
-    border-color: #d5006d; /* Pink border on focus */
-    outline: none;
-  }
-  
+
   .register-button {
-    width: 100%;
-    padding: 10px;
-    background-color: #d5006d; /* Pink button */
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+      padding: 14px; /* Slightly larger button padding on mobile */
   }
-  
-  .register-button:hover {
-    background-color: #c51162; /* Darker pink on hover */
-  }
-  
-  .login-link {
-    color: #d5006d;
-    text-decoration: none;
-  }
-  
-  .login-link:hover {
-    text-decoration: underline;
-  }
+}
