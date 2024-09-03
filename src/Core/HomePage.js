@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useMediaQuery } from 'react-responsive';
-import { fetchMovies } from '../utils/api';
+import { fetchMovies, HoverMovies } from '../utils/api';
 import {
   GlobalStyle,
-  Container,
-  Title,
-  MovieGridWrapper,
+  AppContainer,
+  Navbar,
+  NavItem,
+  MainContent,
+  SectionTitle,
   MovieGridContainer,
   MovieItem,
   MovieImage,
@@ -14,47 +15,72 @@ import {
   MovieTitle,
   MovieRating,
   MovieDescription,
-  MovieCategory,
+  WatchNowButton,
   LoadingMessage,
-  ErrorMessage
+  ErrorMessage,
+  HamburgerButton,
+  MobileNavOverlay,
+  ContentWrapper,
+  NavItemsContainer,
+  Logo,
+  SubscribeButton,
+  FeaturedMovieContainer,
+  FeaturedMovieItem,
+  FeaturedMovieInfo,
+  CarouselIndicator,
+  CarouselIndicatorDot,
+  FeaturedMovieTitle,
+  FeaturedMovieDescription,
+  ScrollButton
 } from './HomePageStyles';
+
+import homeIcon from '../assets/Home.png';
+import Profile from '../assets/Profile.png';
+import Search from '../assets/Search.png';
+import logo from '../assets/logo.png';
 
 const HomePage = () => {
   const [movies, setMovies] = useState([]);
+  const [hoverMovies, setHoverMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
-  const isMobile = useMediaQuery({ maxWidth: 767 });
+  const [isNavExpanded, setIsNavExpanded] = useState(false);
+  const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
+  const [isSubscribed, setIsSubscribed] = useState(false);
+  const [currentFeaturedMovie, setCurrentFeaturedMovie] = useState(0);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (!token) {
-      navigate('/');
-      return;
-    }
-
     const fetchData = async () => {
       try {
-        const data = await fetchMovies();
-        setMovies(data);
+        const [moviesData, hoverMoviesData] = await Promise.all([
+          fetchMovies(),
+          HoverMovies()
+        ]);
+        setMovies(moviesData);
+        setHoverMovies(hoverMoviesData);
         setIsLoading(false);
       } catch (error) {
-        console.error("Error fetching movies:", error);
-        setError("Failed to fetch movies. Please try again later.");
+        console.error("Error fetching data:", error);
+        setError("Failed to fetch data. Please try again later.");
         setIsLoading(false);
       }
     };
 
     fetchData();
-  }, [navigate]);
+    checkSubscriptionStatus();
+  }, []);
 
-  if (isLoading) {
-    return <LoadingMessage>Loading...</LoadingMessage>;
-  }
-
-  if (error) {
-    return <ErrorMessage>{error}</ErrorMessage>;
-  }
+  const checkSubscriptionStatus = () => {
+    const token = localStorage.getItem('token');
+    const expiryDate = localStorage.getItem('expiryDate');
+    
+    if (!token || (expiryDate && new Date(expiryDate) < new Date())) {
+      setIsSubscribed(false);
+    } else {
+      setIsSubscribed(true);
+    }
+  };
 
   const getFullImageUrl = (imagePath) => {
     const baseUrl = 'https://api.indrajala.in/public';
@@ -73,31 +99,133 @@ const HomePage = () => {
     navigate(`/movie/${movieId}`);
   };
 
+  const toggleMobileNav = () => {
+    setIsMobileNavOpen(!isMobileNavOpen);
+  };
+
+  const handleSubscribe = () => {
+    navigate('/subscribe');
+  };
+
+  const handleFeaturedMovieChange = (index) => {
+    setCurrentFeaturedMovie(index);
+  };
+
+  const scrollFeaturedMovie = (direction) => {
+    if (direction === 'left') {
+      setCurrentFeaturedMovie((prev) => (prev === 0 ? hoverMovies.length - 1 : prev - 1));
+    } else {
+      setCurrentFeaturedMovie((prev) => (prev === hoverMovies.length - 1 ? 0 : prev + 1));
+    }
+  };
+
+  if (isLoading) {
+    return <LoadingMessage>Loading...</LoadingMessage>;
+  }
+
+  if (error) {
+    return <ErrorMessage>{error}</ErrorMessage>;
+  }
+
   return (
     <>
       <GlobalStyle />
-      <Container>
-        <Title isMobile={isMobile}>Indrajala, The OTT Of Your Fantasies</Title>
-        <MovieGridWrapper>
-          <MovieGridContainer>
-            {movies.map((movie) => (
-              <MovieItem 
-                key={movie._id} 
-                onClick={() => handleMovieClick(movie.url)}
-                style={{ cursor: 'pointer' }}
+      <AppContainer>
+        <HamburgerButton onClick={toggleMobileNav}>
+          <span></span>
+          <span></span>
+          <span></span>
+        </HamburgerButton>
+        <Navbar
+          onMouseEnter={() => setIsNavExpanded(true)}
+          onMouseLeave={() => setIsNavExpanded(false)}
+          isMobileNavOpen={isMobileNavOpen}
+        >
+          <Logo src={logo} alt="Logo" />
+          {!isSubscribed && (
+            <SubscribeButton onClick={handleSubscribe}>Subscribe Now</SubscribeButton>
+          )}
+          <NavItemsContainer>
+            <NavItem>
+              <img src={homeIcon} alt="" />
+              <span aria-label="Home">Home</span>
+            </NavItem>
+            <NavItem>
+              <img src={Profile} alt="" />
+              <span aria-label="Profile">Profile</span>
+            </NavItem>
+            <NavItem>
+              <img src={Search} alt="" />
+              <span aria-label="Search">Search</span>
+            </NavItem>
+          </NavItemsContainer>
+        </Navbar>
+        {isMobileNavOpen && <MobileNavOverlay onClick={toggleMobileNav} />}
+        <MainContent isNavExpanded={isNavExpanded}>
+          <ContentWrapper>
+            <FeaturedMovieContainer>
+              <ScrollButton 
+                onClick={() => scrollFeaturedMovie('left')} 
+                direction="left"
+                aria-label="Previous featured movie"
               >
-                <MovieImage src={getFullImageUrl(movie.movieFullImage)} alt={movie.movieName} />
-                <MovieInfo>
-                  <MovieTitle>{movie.movieName}</MovieTitle>
-                  <MovieRating>Rating: {movie.rating}</MovieRating>
-                  <MovieDescription>{movie.description}</MovieDescription>
-                  <MovieCategory><b>Category: </b>{movie.category.join(', ')}</MovieCategory>
-                </MovieInfo>
-              </MovieItem>
-            ))}
-          </MovieGridContainer>
-        </MovieGridWrapper>
-      </Container>
+                &lt;
+              </ScrollButton>
+              {hoverMovies.map((movie, index) => (
+                <FeaturedMovieItem 
+                  key={movie._id} 
+                  onClick={() => handleMovieClick(movie.url)}
+                  isActive={index === currentFeaturedMovie}
+                >
+                  <MovieImage src={getFullImageUrl(movie.movieFullImage)} alt={movie.movieName} />
+                  <FeaturedMovieInfo>
+                    <FeaturedMovieTitle>{movie.movieName}</FeaturedMovieTitle>
+                    <MovieRating> <b> Rating </b> &nbsp;&nbsp; {movie.rating}</MovieRating>
+                    <br></br>
+                    <span>{movie.category.join(', ')}</span>
+                    <FeaturedMovieDescription>{movie.description}</FeaturedMovieDescription>
+                  </FeaturedMovieInfo>
+                </FeaturedMovieItem>
+              ))}
+              <ScrollButton 
+                onClick={() => scrollFeaturedMovie('right')} 
+                direction="right"
+                aria-label="Next featured movie"
+              >
+                &gt;
+              </ScrollButton>
+            </FeaturedMovieContainer>
+            
+            <CarouselIndicator>
+              {hoverMovies.map((_, index) => (
+                <CarouselIndicatorDot 
+                  key={index} 
+                  isActive={index === currentFeaturedMovie}
+                  onClick={() => handleFeaturedMovieChange(index)}
+                />
+              ))}
+            </CarouselIndicator>
+
+            <SectionTitle>Top New</SectionTitle>
+            <MovieGridContainer>
+              {movies.map((movie) => (
+                <MovieItem 
+                  key={movie._id} 
+                  onClick={() => handleMovieClick(movie.url)}
+                >
+                  <MovieImage src={getFullImageUrl(movie.movieFullImage)} alt={movie.movieName} />
+                  <MovieInfo>
+                    <MovieTitle>{movie.movieName}</MovieTitle>
+                    <MovieRating className="desktop-only">★ {movie.rating}</MovieRating>
+                    <MovieDescription>{movie.description}</MovieDescription>
+                    <WatchNowButton>Watch Now</WatchNowButton>
+                  </MovieInfo>
+                </MovieItem>
+              ))}
+            </MovieGridContainer>
+          </ContentWrapper>
+        </MainContent>
+      </AppContainer>
     </>
   );
 };

@@ -19,7 +19,7 @@ const App = () => {
     <ThemeProvider theme={theme}>
       <Router>
         <Routes>
-          <Route path="/" exact element={<LandingPage />} />
+          <Route path="/" exact element={<HomePage />} />
           <Route path="/reset-password" exact element={<ResetPasswordPage />} />
           <Route path="/login" exact element={<Login />} />
           <Route path="/register" exact element={<RegisterPage />} />
