@@ -14,6 +14,10 @@ import { ThemeProvider } from 'styled-components';
 import theme from './StyleSheets/theme';
 import LandingPage from './Core/LandingPage';
 
+import PayScreen from './Payments/SubscriptionPage';
+;
+
+
 const App = () => {
   return (
     <ThemeProvider theme={theme}>
@@ -24,9 +28,15 @@ const App = () => {
           <Route path="/login" exact element={<Login />} />
           <Route path="/register" exact element={<RegisterPage />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/Subscribe" element={<PayScreen />} />
+          
+
+
 
           <Route path="/Home" exact element={<HomePage />} />
           <Route path="*" element={<HomePage />} />
+          
+
           
             <Route path="/Movie/" element={<MoviePage />} />
           <Route path="/movie/:url" element={<MovieDetailPage />} />
