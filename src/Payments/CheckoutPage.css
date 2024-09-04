@@ -1,0 +1,223 @@
+/* CheckoutPage.css */
+:root {
+  --primary-color: #000000;
+  --secondary-color: #ff1493;
+  --text-color: #ffffff;
+  --background-color: #1a1a1a;
+  --card-background: #2a2a2a;
+  --input-background: #333333;
+  --error-color: #ff4444;
+}
+
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  font-family: 'Arial', sans-serif;
+}
+
+.checkout-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.checkout-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 40px 20px;
+  max-width: 1200px;
+  margin: 80px auto 0 auto;
+}
+
+.plan-details, .form-container {
+  flex: 1;
+  padding: 20px;
+  background-color: var(--card-background);
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(255, 20, 147, 0.2);
+}
+
+.plan-details {
+  margin-right: 30px;
+}
+
+.error-message {
+  color: var(--error-color);
+  margin-top: 10px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-container form {
+  width: 85%;
+  max-width: 500px;
+}
+
+.plan-details h1 {
+  color: var(--secondary-color);
+  font-size: 2.5em;
+  margin-bottom: 10px;
+}
+
+.plan-details .price {
+  font-size: 1.8em;
+  font-weight: bold;
+  color: var(--text-color);
+  margin-bottom: 20px;
+}
+
+.plan-details ul {
+  list-style-type: none;
+  padding: 0;
+  text-align: left;
+}
+
+.plan-details ul li {
+  margin-bottom: 10px;
+  color: var(--text-color);
+}
+
+.plan-details ul li::before {
+  content: '✓';
+  color: var(--secondary-color);
+  margin-right: 5px;
+}
+
+.form-container h2 {
+  color: var(--secondary-color);
+  font-size: 2em;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: bold;
+  color: var(--text-color);
+}
+
+.form-group input {
+  width: 100%;
+  max-width: 400px;
+  padding: 10px;
+  border: 1px solid var(--secondary-color);
+  border-radius: 5px;
+  margin: 0 auto;
+  background-color: var(--input-background);
+  color: var(--text-color);
+}
+
+.checkout-button {
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
+  border: none;
+  padding: 15px 30px;
+  font-size: 1.2em;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  display: block;
+  margin: 20px auto 0;
+}
+
+.checkout-button:hover {
+  background-color: #ff69b4;
+}
+
+/* Toggle Switch Styles */
+.toggle-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+  margin-right: 10px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--primary-color);
+  transition: .4s;
+  border: 2px solid var(--secondary-color);
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 2px;
+  background-color: var(--secondary-color);
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: var(--secondary-color);
+}
+
+input:checked + .slider:before {
+  transform: translateX(26px);
+  background-color: var(--primary-color);
+}
+
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+  .checkout-container {
+    flex-direction: column;
+    padding: 20px;
+  }
+
+  .plan-details,
+  .form-container {
+    margin-bottom: 20px;
+    margin-right: 0;
+  }
+
+  .form-container {
+    padding: 10px;
+  }
+
+  .form-container form {
+    max-width: 90%;
+  }
+
+  .form-group input {
+    max-width: 90%;
+  }
+}
