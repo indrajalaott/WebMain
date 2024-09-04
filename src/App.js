@@ -15,7 +15,7 @@ import theme from './StyleSheets/theme';
 import LandingPage from './Core/LandingPage';
 
 import PayScreen from './Payments/SubscriptionPage';
-;
+import Checkout from './Payments/CheckoutPage';
 
 
 const App = () => {
@@ -29,14 +29,13 @@ const App = () => {
           <Route path="/register" exact element={<RegisterPage />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/Subscribe" element={<PayScreen />} />
-          
+          <Route path="/checkout/:id" element={<Checkout />} /> 
 
 
 
           <Route path="/Home" exact element={<HomePage />} />
           <Route path="*" element={<HomePage />} />
           
-
           
             <Route path="/Movie/" element={<MoviePage />} />
           <Route path="/movie/:url" element={<MovieDetailPage />} />
