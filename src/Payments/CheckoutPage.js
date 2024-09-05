@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import './CheckoutPage.css';
-import Navbar from './Navbar';
 import Footer from './Footer';
 
 const plans = [
@@ -13,26 +12,26 @@ const plans = [
 const CheckoutPage = () => {
   const [plan, setPlan] = useState(null);
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
+    phoneNumber: '',
   });
-  const [isRegistered, setIsRegistered] = useState(true); // Simulate registration check
   const [errorMessage, setErrorMessage] = useState('');
-  const { id: planId } = useParams(); // Get the plan ID from the route parameters
-  const navigate = useNavigate(); // Initialize navigate
+  const { id: planId } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    // Fetch plan details based on the planId
-    const fetchedPlan = plans.find((p) => p.id === parseInt(planId));
+    const token = localStorage.getItem('token');
+    if (!token) {
+      navigate('/login');
+      return;
+    }
 
+    const fetchedPlan = plans.find((p) => p.id === parseInt(planId));
     if (fetchedPlan) {
       setPlan(fetchedPlan);
     } else {
-      // Redirect to home page if plan is not found
       navigate('/');
     }
-  }, [planId, navigate]); // Include navigate as a dependency
+  }, [planId, navigate]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -41,18 +40,18 @@ const CheckoutPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setErrorMessage(''); // Clear any previous error message
+    setErrorMessage('');
 
-    if (!isRegistered) {
-      setErrorMessage('Please register first before checking out.');
+    const token = localStorage.getItem('token');
+    if (!token) {
+      navigate('/login');
       return;
     }
 
     const paymentData = {
-      Name: formData.name,
-      Email: formData.email,
-      PhoneNumber: formData.phone,
-      Amount: plan.price, // Use the plan price as the amount
+      Token: token,
+      PhoneNumber: formData.phoneNumber,
+      OrderId: `ORD${Date.now()}`, // Generate a unique OrderId
     };
 
     try {
@@ -68,22 +67,18 @@ const CheckoutPage = () => {
       console.log('Payment Response:', result);
 
       if (response.status === 404) {
-        setErrorMessage("Kindly use the email ID used during registration or register with us.");
+        setErrorMessage("Invalid token or phone number. Please try again.");
         return;
       }
 
       if (response.status === 201) {
-        // Check if the response has the expected structure
         if (result.data && 
             result.data.data && 
             result.data.data.instrumentResponse && 
             result.data.data.instrumentResponse.redirectInfo && 
             result.data.data.instrumentResponse.redirectInfo.url) {
           
-          // Get the redirect URL
           const redirectUrl = result.data.data.instrumentResponse.redirectInfo.url;
-          
-          // Open the URL in a new tab
           window.open(redirectUrl, '_blank');
         } else {
           setErrorMessage("Unexpected response format. Please try again.");
@@ -100,7 +95,6 @@ const CheckoutPage = () => {
 
   return (
     <div className="checkout-page">
-      <Navbar />
       <div className="checkout-container">
         <div className="plan-details">
           {plan ? (
@@ -120,38 +114,13 @@ const CheckoutPage = () => {
         <div className="form-container">
           <form onSubmit={handleSubmit}>
             <h2>Checkout Form</h2>
-            <p className="registration-note">
-              Please enter your registered email ID. If you are not registered, please register first.
-            </p>
             <div className="form-group">
-              <label htmlFor="name">Name:</label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="email">Email:</label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="phone">Phone Number:</label>
+              <label htmlFor="phoneNumber">Enter Your Phone Number:</label>
               <input
                 type="tel"
-                id="phone"
-                name="phone"
-                value={formData.phone}
+                id="phoneNumber"
+                name="phoneNumber"
+                value={formData.phoneNumber}
                 onChange={handleChange}
                 required
               />

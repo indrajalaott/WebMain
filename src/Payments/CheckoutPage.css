@@ -25,20 +25,20 @@ body {
   display: flex;
   justify-content: space-between;
   padding: 40px 20px;
-  max-width: 1200px;
-  margin: 80px auto 0 auto;
+  max-width: 1600px;
+  margin: 40px auto 0 auto;
 }
 
 .plan-details, .form-container {
   flex: 1;
-  padding: 20px;
+  padding: 40px;
   background-color: var(--card-background);
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(255, 20, 147, 0.2);
+  border-radius: 15px;
+  box-shadow: 0 8px 16px rgba(255, 20, 147, 0.3);
 }
 
 .plan-details {
-  margin-right: 30px;
+  margin-right: 40px;
 }
 
 .error-message {
@@ -55,21 +55,21 @@ body {
 }
 
 .form-container form {
-  width: 85%;
-  max-width: 500px;
+  width: 100%;
+  max-width: 800px;
 }
 
 .plan-details h1 {
   color: var(--secondary-color);
-  font-size: 2.5em;
-  margin-bottom: 10px;
+  font-size: 3em;
+  margin-bottom: 20px;
 }
 
 .plan-details .price {
-  font-size: 1.8em;
+  font-size: 2.2em;
   font-weight: bold;
   color: var(--text-color);
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
 
 .plan-details ul {
@@ -79,55 +79,59 @@ body {
 }
 
 .plan-details ul li {
-  margin-bottom: 10px;
+  margin-bottom: 15px;
   color: var(--text-color);
+  font-size: 1.2em;
 }
 
 .plan-details ul li::before {
   content: '✓';
   color: var(--secondary-color);
-  margin-right: 5px;
+  margin-right: 10px;
 }
 
 .form-container h2 {
   color: var(--secondary-color);
-  font-size: 2em;
-  margin-bottom: 20px;
+  font-size: 2.5em;
+  margin-bottom: 30px;
   text-align: center;
 }
 
 .form-group {
-  margin-bottom: 15px;
+  margin-bottom: 25px;
 }
 
 .form-group label {
   display: block;
   font-weight: bold;
   color: var(--text-color);
+  font-size: 1.2em;
+  margin-bottom: 10px;
 }
 
 .form-group input {
   width: 100%;
-  max-width: 400px;
-  padding: 10px;
-  border: 1px solid var(--secondary-color);
-  border-radius: 5px;
+  max-width: 600px;
+  padding: 15px;
+  border: 2px solid var(--secondary-color);
+  border-radius: 8px;
   margin: 0 auto;
   background-color: var(--input-background);
   color: var(--text-color);
+  font-size: 1.1em;
 }
 
 .checkout-button {
   background-color: var(--secondary-color);
   color: var(--primary-color);
   border: none;
-  padding: 15px 30px;
-  font-size: 1.2em;
-  border-radius: 5px;
+  padding: 20px 40px;
+  font-size: 1.4em;
+  border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.3s ease;
   display: block;
-  margin: 20px auto 0;
+  margin: 30px auto 0;
 }
 
 .checkout-button:hover {
@@ -197,7 +201,7 @@ input:checked + .slider:before {
 }
 
 /* Media Queries */
-@media (max-width: 768px) {
+@media (max-width: 1200px) {
   .checkout-container {
     flex-direction: column;
     padding: 20px;
@@ -205,19 +209,19 @@ input:checked + .slider:before {
 
   .plan-details,
   .form-container {
-    margin-bottom: 20px;
+    margin-bottom: 30px;
     margin-right: 0;
   }
 
   .form-container {
-    padding: 10px;
+    padding: 20px;
   }
 
   .form-container form {
-    max-width: 90%;
+    max-width: 100%;
   }
 
   .form-group input {
-    max-width: 90%;
+    max-width: 100%;
   }
 }

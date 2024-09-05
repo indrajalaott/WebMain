@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './SubscriptionPage.css';
-import Navbar from './Navbar';
 
 const plans = [
   { id: 1, name: 'Basic', priceINR: 299, priceUSD: 3.75, features: ['Full HD streaming', '1 device at a time', '15 Days of Validity'] },
@@ -55,7 +54,7 @@ const SubscriptionPage = () => {
 
   return (
     <div className="subscription-page">
-      <Navbar />
+      
       <div className="subscription-container">
         <h1>The OTT of Your Fantasies</h1>
         <div className="toggle-container">
