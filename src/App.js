@@ -16,6 +16,7 @@ import LandingPage from './Core/LandingPage';
 
 import PayScreen from './Payments/SubscriptionPage';
 import Checkout from './Payments/CheckoutPage';
+import RazorPay from './Payments/OrdersRazorPay';
 
 
 const App = () => {
@@ -30,6 +31,7 @@ const App = () => {
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/Subscribe" element={<PayScreen />} />
           <Route path="/checkout/:id" element={<Checkout />} /> 
+          <Route path="/pay/:id" element={<RazorPay />} /> 
 
 
 

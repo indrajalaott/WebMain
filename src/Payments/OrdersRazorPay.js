@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import './CheckoutPage.css';
-import Navbar from './Navbar';
 import Footer from './Footer';
 
 const plans = [
@@ -27,16 +26,6 @@ const CheckoutPage = () => {
     const id = planIdFromUrl ? parseInt(planIdFromUrl) : 1;
     const fetchedPlan = plans.find((p) => p.id === id) || plans[0];
     setPlan(fetchedPlan);
-
-    // Load Razorpay script
-    const script = document.createElement('script');
-    script.src = 'https://checkout.razorpay.com/v1/checkout.js';
-    script.async = true;
-    document.body.appendChild(script);
-
-    return () => {
-      document.body.removeChild(script);
-    };
   }, [planIdFromUrl]);
 
   const handleChange = (e) => {
@@ -64,82 +53,23 @@ const CheckoutPage = () => {
       });
 
       const result = await response.json();
-      console.log('Payment Response:', result);
+      console.log('Order Creation Response:', result);
 
       if (response.ok) {
-        setResponseMessage(JSON.stringify(result, null, 2));
-        initiateRazorpayPayment(result);
+        setResponseMessage('Order created successfully. Proceed with payment.');
+        // Here you would typically redirect to a payment gateway or show payment options
       } else {
-        setErrorMessage(result.message || "An error occurred during payment. Please try again.");
+        setErrorMessage(result.message || "An error occurred while creating the order. Please try again.");
       }
 
     } catch (error) {
-      console.error('Error during payment:', error);
-      setErrorMessage("An error occurred during payment. Please try again.");
-    }
-  };
-
-  const initiateRazorpayPayment = (orderData) => {
-    const options = {
-      key: 'zp_live_K5IzvR8gLRxvCW', // Replace with your actual Razorpay key
-      amount: orderData.amount * 100, // Razorpay expects amount in paise (1 USD = 100 paise)
-      currency: orderData.currency || 'USD', // Ensure currency is set to USD
-      name: 'Indrajala Movie Makers LLP',
-      description: `Payment for ${plan.name} Plan`,
-      order_id: orderData.orderId,
-      handler: function (response) {
-        verifyPayment(response, orderData);
-      },
-      prefill: {
-        name: formData.Name,
-        email: formData.Email,
-        contact: formData.PhoneNumber
-      },
-      theme: {
-        color: '#3399cc'
-      }
-    };
-
-    const rzp = new window.Razorpay(options);
-    rzp.open();
-  };
-
-  const verifyPayment = async (paymentResponse, orderData) => {
-    console.log('Payment Response:', paymentResponse); // Log payment response
-    try {
-      const verificationData = {
-        Order_ID: orderData.orderId,
-        Payment_ID: paymentResponse.razorpay_payment_id,
-        Signature: paymentResponse.razorpay_signature
-      };
-
-      const response = await fetch('https://api.indrajala.in/api/pay/verifyPayment', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(verificationData),
-      });
-
-      const result = await response.json();
-      console.log('Verification Response:', result);
-
-      if (response.ok) {
-        setResponseMessage('Payment verified successfully!');
-        // Handle successful payment (e.g., redirect to success page, update user's subscription, etc.)
-      } else {
-        setErrorMessage('Payment verification failed. Please contact support.');
-      }
-
-    } catch (error) {
-      console.error('Error during payment verification:', error);
-      setErrorMessage('An error occurred during payment verification. Please contact support.');
+      console.error('Error during order creation:', error);
+      setErrorMessage("An error occurred. Please try again.");
     }
   };
 
   return (
     <div className="checkout-page">
-      <Navbar />
       <div className="checkout-container">
         <div className="plan-details">
           {plan ? (
@@ -195,12 +125,11 @@ const CheckoutPage = () => {
                 required
               />
             </div>
-            <button type="submit" className="checkout-button">Checkout</button>
+            <button type="submit" className="checkout-button">Proceed to Payment</button>
             {errorMessage && <p className="error-message">{errorMessage}</p>}
             {responseMessage && (
               <div className="response-message">
-                <h3>API Response:</h3>
-                <pre>{responseMessage}</pre>
+                <p>{responseMessage}</p>
               </div>
             )}
           </form>

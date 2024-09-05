@@ -51,6 +51,19 @@ const HomePage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+
+
+      const urlParams = new URLSearchParams(window.location.search);
+    const token = urlParams.get('jwt');
+    const expiryDate = urlParams.get('exp');
+
+    if (token && expiryDate) {
+      // Save the token and expiry date to localStorage
+      localStorage.setItem('token', token);
+      localStorage.setItem('expiryDate', expiryDate);
+    }
+
+
     const fetchData = async () => {
       try {
         const [moviesData, hoverMoviesData] = await Promise.all([
