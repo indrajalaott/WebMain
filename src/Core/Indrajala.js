@@ -22,7 +22,7 @@ const Indrajala = () => {
             Unleash Your Desires
           </p>
           <div className={`tagline ${animate ? 'animate' : ''}`}>
-            The 18+ OTT For All Your Fantasies
+            The  OTT For All Your Fantasies
           </div>
           <p className={`coming-soon ${animate ? 'animate' : ''}`}>
             Coming Soon to Ignite Your Imagination
