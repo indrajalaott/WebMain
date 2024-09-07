@@ -35,8 +35,8 @@ const App = () => {
           <Route path="/checkout/:id" element={<Checkout />} /> 
           <Route path="/pay/:id" element={<RazorPay />} /> 
           <Route path="/Broke" element={<Broke />} /> 
-          <Route path="/Profile" element={<Profile />} />  */}
-          
+          <Route path="/Profile" element={<Profile />} /> 
+           */}
 
 
 
