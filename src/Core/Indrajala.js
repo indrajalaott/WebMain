@@ -29,7 +29,7 @@ const Indrajala = () => {
           </p>
         </main>
         <footer>
-          <p>Must be 18+ to enter. Indulge responsibly.</p>
+          <p>Must be  Indulge responsibly.</p>
         </footer>
       </div>
     </div>
