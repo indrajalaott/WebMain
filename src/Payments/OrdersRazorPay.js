@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import './CheckoutPage.css';
+import toast, { Toaster } from "react-hot-toast";
 import Footer from './Footer';
 
 const plans = [
@@ -54,6 +55,7 @@ const CheckoutPage = () => {
 
       const result = await response.json();
       console.log('Order Creation Response:', result);
+      handlePaymentVerify(result)
 
       if (response.ok) {
         setResponseMessage('Order created successfully. Proceed with payment.');
@@ -67,6 +69,51 @@ const CheckoutPage = () => {
       setErrorMessage("An error occurred. Please try again.");
     }
   };
+
+  const handlePaymentVerify = async (data) => {
+
+    console.log(data);
+    const options = {
+        key: "rzp_live_M0X50Vu0ZFK1WK",
+        amount: data.amount,
+        currency: data.currency,
+        name: "Indrajala Movie Makers LLP",
+        description: "Suscribion ",
+        order_id: data.id,
+        handler: async (response) => {
+            console.log("response", response)
+            try {
+              const res = await fetch('https://api.indrajala.in/api/pay/verifyPayment', {
+                method: 'POST',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        razorpay_order_id: response.razorpay_order_id,
+                        razorpay_payment_id: response.razorpay_payment_id,
+                        razorpay_signature: response.razorpay_signature,
+                    })
+                })
+
+                const verifyData = await res.json();
+
+                if (verifyData.message) {
+                    toast.success(verifyData.message)
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        },
+        theme: {
+            color: "#5f63b8"
+        }
+    };
+    const rzp1 = new window.Razorpay(options);
+    rzp1.open();
+};
+
+
+
 
   return (
     <div className="checkout-page">
@@ -126,6 +173,8 @@ const CheckoutPage = () => {
               />
             </div>
             <button type="submit" className="checkout-button">Proceed to Payment</button>
+
+            <Toaster/>
             {errorMessage && <p className="error-message">{errorMessage}</p>}
             {responseMessage && (
               <div className="response-message">

@@ -14,17 +14,19 @@ import { ThemeProvider } from 'styled-components';
 import theme from './StyleSheets/theme';
 import LandingPage from './Core/LandingPage';
 
+
+import Profile from './Core/Profile';
 import PayScreen from './Payments/SubscriptionPage';
 import Checkout from './Payments/CheckoutPage';
 import RazorPay from './Payments/OrdersRazorPay';
-
+import Broke from './Payments/Broken';
 
 const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <Router>
         <Routes>
-          <Route path="/" exact element={<HomePage />} />
+          <Route path="/" exact element={<LandingPage />} />
           <Route path="/reset-password" exact element={<ResetPasswordPage />} />
           <Route path="/login" exact element={<Login />} />
           <Route path="/register" exact element={<RegisterPage />} />
@@ -32,6 +34,9 @@ const App = () => {
           <Route path="/Subscribe" element={<PayScreen />} />
           <Route path="/checkout/:id" element={<Checkout />} /> 
           <Route path="/pay/:id" element={<RazorPay />} /> 
+          <Route path="/Broke" element={<Broke />} /> 
+          <Route path="/Profile" element={<Profile />} /> 
+          
 
 
 

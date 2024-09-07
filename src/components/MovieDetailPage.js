@@ -14,10 +14,7 @@ const MovieDetailPage = () => {
     // Retrieve the token from local storage
     const storedToken = localStorage.getItem('token');
 
-    if (!storedToken) {
-      navigate('/'); // Redirect to home or login page
-      // Stop execution if no token
-    }
+   
     setToken(storedToken);
 
     // Fetch movie details
@@ -67,7 +64,7 @@ const MovieDetailPage = () => {
 
   const handlePurchasePremium = () => {
     // Redirect to the Indrajala orders page
-    window.location.href = 'https://orders.indrajala.in/';
+    window.location.href = '/Subscribe';
   };
 
   const isExpired = expiryDate && expiryDate < new Date();

@@ -163,9 +163,9 @@ const HomePage = () => {
               <img src={homeIcon} alt="" />
               <span aria-label="Home">Home</span>
             </NavItem>
-            <NavItem>
-              <img src={Profile} alt="" />
-              <span aria-label="Profile">Profile</span>
+            <NavItem onClick={() => navigate('/Profile')} style={{ cursor: 'pointer' }}>
+                <img src={Profile} alt="Profile" />
+                <span aria-label="Profile">Profile</span>
             </NavItem>
             <NavItem>
               <img src={Search} alt="" />
