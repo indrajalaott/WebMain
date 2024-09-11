@@ -1,7 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500;700&display=swap');
+
 body {
   margin: 0;
-  font-family: 'Arial', sans-serif;
-  background: #121212;
+  font-family: 'Roboto', sans-serif;
+  background: url('../assets/background.jpg') no-repeat center center fixed;
+  background-size: cover;
   color: #e0e0e0;
 }
 
@@ -11,117 +14,148 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background: linear-gradient(to bottom, #1e1e1e, #333);
+  background: rgba(0, 0, 0, 0.6);
   padding: 20px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
   border-radius: 15px;
 }
 
 h1 {
-  color: #f44336;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 700;
+  font-size: 46pt;
+  color: #ffffff;
   margin-bottom: 20px;
-  font-size: 2.5rem;
+  text-align: center;
 }
 
 .error-message {
   color: #f44336;
   margin-bottom: 20px;
   font-size: 0.875rem;
+  text-align: center;
 }
 
 .login-form {
   width: 100%;
-  max-width: 500px;
-  background: #1e1e1e;
+  max-width: 520px;
+  background-color: #17161C;
   padding: 40px;
   border-radius: 15px;
   box-shadow: 0 4px 25px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center align the form items */
 }
 
 .form-group {
   margin-bottom: 20px;
+  width: 100%;
   display: flex;
-  color: #ffffff;
   flex-direction: column;
-  align-items: stretch;
+  align-items: center;
+}
+
+.form-group.email-group {
+  margin-top: 4%; /* Adds space above the email input */
 }
 
 label {
-  display: block;
-  margin-bottom: 8px;
-  color: #ffffff; /* Changed to white color for visibility */
-  font-size: 0.875rem;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 700;
+  font-size: 24pt;
+  color: #ffffff;
+  margin-bottom: 10px;
+  text-align: center;
 }
 
 input {
-  width: 85%; /* Reduced width to 85% */
-  padding: 12px;
-  border: 1px solid #444;
-  border-radius: 8px;
-  background: #333;
-  color: #e0e0e0;
-  font-size: 1rem;
-  margin: 0 auto; /* Center the input within the form group */
+  width: 65%; /* Occupies 80% of the container width */
+  max-width: 400px; /* Maximum width constraint */
+  padding: 12px; /* Padding inside the input */
+  border: 1px solid #ffffff; /* Border color */
+  border-radius: 50px 50px 0 0; /* Rounded top corners only */
+  background: #ffffff; /* Background color */
+  color: #000000; /* Text color */
+  font-size: 1rem; /* Font size */
+  text-align: center; /* Text alignment */
+  box-sizing: border-box; /* Includes padding and border in the width */
+  display: block; /* Ensures it's a block-level element */
+  margin: 0 auto; /* Centers it horizontally if it's in a container */
 }
 
+
 input:focus {
-  border-color: #f44336;
+  border-color: #ff2d72;
   outline: none;
-  box-shadow: 0 0 5px rgba(244, 67, 54, 0.5);
+  box-shadow: 0 0 5px rgba(255, 45, 114, 0.5);
 }
 
 .login-button {
-  width: 25%; /* Reduced width to 25% */
+  width: 100%;
+  max-width: 200px; /* Optional: Set a max-width for better control */
   padding: 10px;
-  background-color: #f44336;
+  background-color: #ff2d72;
   color: #ffffff;
   border: none;
-  border-radius: 6px;
+  border-radius: 50px;
   cursor: pointer;
-  font-size: 0.875rem;
+  font-family: 'Roboto Medium', sans-serif;
+  font-weight: 300;
+  font-size: 18pt;
   transition: background-color 0.3s ease, transform 0.2s ease;
-  align-self: center;
+  display: block; /* Ensure it's a block element */
+  margin: 0 auto; /* Center it horizontally */
 }
 
 .login-button:hover {
-  background-color: #d32f2f;
+  background-color: #e01e61;
   transform: translateY(-1px);
 }
 
 .register-link,
 .forgot-password-link {
-  display: block;
-  margin-top: 15px;
-  color: #f44336;
-  text-decoration: none;
-  font-size: 0.875rem;
+  display: inline-block; /* Align links in a single line */
+  margin: 0 10px; /* Adjust spacing between links */
+  color: #ffffff;
+  text-decoration: none; /* Remove underline by default */
+  font-family: 'Roboto Medium', sans-serif;
+  font-weight: 200;
+  font-size: 18pt;
+  text-align: center;
 }
 
 .register-link:hover,
 .forgot-password-link:hover {
-  text-decoration: underline;
+  text-decoration: none; /* Ensure no underline on hover */
 }
 
 /* Media query for mobile responsiveness */
 @media (max-width: 768px) {
   .login-container {
-    padding: 10px; /* Adjust padding for smaller screens */
+    padding: 10px;
   }
 
   .login-form {
-    padding: 20px; /* Adjust form padding for smaller screens */
+    padding: 20px;
   }
 
   h1 {
-    font-size: 2rem; /* Reduce font size for heading */
+    font-size: 2rem;
   }
 
   input {
-    width: 100%; /* Full width for input fields on mobile */
-    padding: 10px; /* Adjust padding for input fields on mobile */
+    width: 100%;
+    padding: 10px;
   }
 
   .login-button {
-    width: 100%; /* Full width for the button on mobile */
+    width: 100%;
+  }
+
+  .register-link,
+  .forgot-password-link {
+    display: block; /* Stack links vertically on smaller screens */
+    margin: 10px 0; /* Adjust margin for vertical stacking */
   }
 }
