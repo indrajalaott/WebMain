@@ -38,6 +38,11 @@ import homeIcon from '../assets/Home.png';
 import Profile from '../assets/Profile.png';
 import Search from '../assets/Search.png';
 import logo from '../assets/logo.png';
+import trending from '../assets/trending.png';
+import upcoming from '../assets/upcoming.png';
+import topfive from '../assets/topfive.png';
+
+
 
 const HomePage = () => {
   const [movies, setMovies] = useState([]);
@@ -219,7 +224,9 @@ const HomePage = () => {
               ))}
             </CarouselIndicator>
 
-            <SectionTitle>Trending</SectionTitle>
+            <SectionTitle>
+              <img src={trending} alt="Trending" />
+            </SectionTitle>
             <MovieGridContainer>
               {movies.map((movie) => (
                 <MovieItem 
@@ -238,7 +245,9 @@ const HomePage = () => {
             </MovieGridContainer>
 
               <br/>
-            <SectionTitle> Up comming</SectionTitle>
+              <SectionTitle>
+              <img src={upcoming} alt="Upcoming" />
+            </SectionTitle>
             <MovieGridContainer>
               {movies.map((movie) => (
                 <MovieItem 
@@ -257,7 +266,9 @@ const HomePage = () => {
             </MovieGridContainer>
             <br/>
 
-            <SectionTitle>Top 5</SectionTitle>
+            <SectionTitle>
+              <img src={topfive} alt="Top 5" />
+            </SectionTitle>
             <MovieGridContainer>
               {movies.map((movie) => (
                 <MovieItem 
