@@ -86,9 +86,8 @@ input {
 
 
 input:focus {
-  border-color: #ff2d72;
   outline: none;
-  box-shadow: 0 0 5px rgba(255, 45, 114, 0.5);
+  
 }
 
 .login-button {

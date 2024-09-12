@@ -190,7 +190,7 @@ const HomePage = () => {
                   onClick={() => handleMovieClick(movie.url)}
                   isActive={index === currentFeaturedMovie}
                 >
-                  <MovieImage src={getFullImageUrl(movie.movieFullImage)} alt={movie.movieName} />
+                  <MovieImage src={getFullImageUrl(movie.smallMovieImage)} alt={movie.movieName} />
                   <FeaturedMovieInfo>
                     <FeaturedMovieTitle>{movie.movieName}</FeaturedMovieTitle>
                     <MovieRating> <b> Rating </b> &nbsp;&nbsp; {movie.rating}</MovieRating>
@@ -226,7 +226,7 @@ const HomePage = () => {
                   key={movie._id} 
                   onClick={() => handleMovieClick(movie.url)}
                 >
-                  <MovieImage src={getFullImageUrl(movie.movieFullImage)} alt={movie.movieName} />
+                  <MovieImage src={getFullImageUrl(movie.movieMobileImage)} alt={movie.movieName} />
                   <MovieInfo>
                     <MovieTitle>{movie.movieName}</MovieTitle>
                     <MovieRating className="desktop-only">★ {movie.rating}</MovieRating>
@@ -245,7 +245,7 @@ const HomePage = () => {
                   key={movie._id} 
                   onClick={() => handleMovieClick(movie.url)}
                 >
-                  <MovieImage src={getFullImageUrl(movie.movieFullImage)} alt={movie.movieName} />
+                  <MovieImage src={getFullImageUrl(movie.movieMobileImage)} alt={movie.movieName} />
                   <MovieInfo>
                     <MovieTitle>{movie.movieName}</MovieTitle>
                     <MovieRating className="desktop-only">★ {movie.rating}</MovieRating>
@@ -264,7 +264,7 @@ const HomePage = () => {
                   key={movie._id} 
                   onClick={() => handleMovieClick(movie.url)}
                 >
-                  <MovieImage src={getFullImageUrl(movie.movieFullImage)} alt={movie.movieName} />
+                  <MovieImage src={getFullImageUrl(movie.movieMobileImage)} alt={movie.movieName} />
                   <MovieInfo>
                     <MovieTitle>{movie.movieName}</MovieTitle>
                     <MovieRating className="desktop-only">★ {movie.rating}</MovieRating>
@@ -283,7 +283,7 @@ const HomePage = () => {
                   key={movie._id} 
                   onClick={() => handleMovieClick(movie.url)}
                 >
-                  <MovieImage src={getFullImageUrl(movie.movieFullImage)} alt={movie.movieName} />
+                  <MovieImage src={getFullImageUrl(movie.movieMobileImage)} alt={movie.movieName} />
                   <MovieInfo>
                     <MovieTitle>{movie.movieName}</MovieTitle>
                     <MovieRating className="desktop-only">★ {movie.rating}</MovieRating>
