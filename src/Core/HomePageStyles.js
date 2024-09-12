@@ -1,4 +1,6 @@
+
 import styled, { createGlobalStyle } from 'styled-components';
+
 
 export const GlobalStyle = createGlobalStyle`
   * {
@@ -43,16 +45,29 @@ export const Navbar = styled.nav`
   @media (max-width: 767px) {
     width: 200px;
     background-color: rgba(26, 26, 26, 1);
-    transform: ${props => props.isMobileNavOpen ? 'translateX(0)' : 'translateX(-100%)'};
+    transform: ${(props) => (props.isMobileNavOpen ? 'translateX(0)' : 'translateX(-100%)')};
   }
 `;
 
+// Change in Logo styled component:
 export const Logo = styled.img`
   width: 60px;
   height: auto;
-  margin-bottom: 0;
   object-fit: contain;
+  margin-bottom: 20px;   // Add some space between the logo and NavItemsContainer
   max-height: 120px;
+`;
+
+
+
+
+export const RedStrip = styled.div`
+  width: 96%;
+  height: 275px; /* Adjust height if needed */
+  background-color: red;
+  margin: 0 auto; /* Centers the strip */
+  position: relative; /* You can change this based on positioning needs */
+  top: 10px; /* Adjust to control the spacing below the Search icon */
 `;
 
 export const SubscribeButton = styled.button`
@@ -71,13 +86,18 @@ export const SubscribeButton = styled.button`
   }
 `;
 
+// Change in NavItemsContainer styled component:
 export const NavItemsContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  flex-grow: 1;
-  justify-content: center;
+  flex-grow: 1;            // Ensure the nav items take up available space
+  justify-content: flex-start;  // Make sure items start at the top
+  margin-top: 20px;         // Add space between the logo and nav items
+  width: 100%;              // Take full width for proper alignment
 `;
+
+
 
 export const NavItem = styled.div`
   padding: 10px;
@@ -248,12 +268,20 @@ export const MovieTitle = styled.h3`
   font-size: 1.3em;
   margin-bottom: 5px;
   color: #ffffff;
+
+  @media (max-width: 767px) {
+    display: none; // Hide on mobile view
+  }
 `;
 
 export const MovieRating = styled.span`
   font-size: 0.9em;
   color: #ffd700;
   margin-bottom: 10px;
+
+  @media (max-width: 767px) {
+    display: none; // Hide on mobile view
+  }
 `;
 
 export const MovieDescription = styled.p`
@@ -282,6 +310,10 @@ export const WatchNowButton = styled.button`
 
   &:hover {
     background-color: #f40612;
+  }
+
+  @media (max-width: 767px) {
+    display: none; // Hide on mobile view
   }
 `;
 
@@ -383,18 +415,24 @@ export const FeaturedMovieInfo = styled.div`
 `;
 
 export const FeaturedMovieTitle = styled.h2`
-  font-size: 2.5em;
+  font-family: 'Bebas Neue', sans-serif; /* Apply Bebas Neue font */
+  font-size: 88px; /* Set font size to 88px */
   margin-bottom: 10px;
   color: #ffffff;
   text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
 `;
 
+
 export const FeaturedMovieDescription = styled.p`
-  font-size: 1em;
+  font-family: 'Poppins', sans-serif; /* Apply Poppins Medium font */
+  font-weight: 500; /* Set to Medium weight (500) */
+  font-size: 14px;   /* Set font size to 14px */
   color: #ffffff;
   margin-top: 10px;
   text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
   display: none;
+  max-width: 65%;  /* Limit the width to 42% of the screen */
+  word-wrap: break-word;  /* Force text to break to a new line if it exceeds the width */
 
   @media (min-width: 768px) {
     display: block;

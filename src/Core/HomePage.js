@@ -23,6 +23,7 @@ import {
   ContentWrapper,
   NavItemsContainer,
   Logo,
+  RedStrip,
   SubscribeButton,
   FeaturedMovieContainer,
   FeaturedMovieItem,
@@ -177,6 +178,7 @@ const HomePage = () => {
               <img src={Search} alt="" />
               <span aria-label="Search">Search</span>
             </NavItem>
+            <RedStrip /> {/* Red tape element */}
           </NavItemsContainer>
         </Navbar>
         {isMobileNavOpen && <MobileNavOverlay onClick={toggleMobileNav} />}
