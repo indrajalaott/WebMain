@@ -50,7 +50,9 @@ export const Navbar = styled.nav`
 export const Logo = styled.img`
   width: 60px;
   height: auto;
-  margin-bottom: 20px;
+  margin-bottom: 0;
+  object-fit: contain;
+  max-height: 120px;
 `;
 
 export const SubscribeButton = styled.button`
