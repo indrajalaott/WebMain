@@ -31,23 +31,25 @@ const App = () => {
           <Route path="/login" exact element={<Login />} />
           <Route path="/register" exact element={<RegisterPage />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/Subscribe" element={<PayScreen />} />
+        
+
+          {/* <Route path="/Subscribe" element={<PayScreen />} />
           <Route path="/checkout/:id" element={<Checkout />} /> 
           <Route path="/pay/:id" element={<RazorPay />} /> 
           <Route path="/Broke" element={<Broke />} /> 
           <Route path="/Profile" element={<Profile />} /> 
-          
+           */}
 
 
 
           <Route path="/Home" exact element={<HomePage />} />
           <Route path="*" element={<HomePage />} />
           
-          
+{/*           
             <Route path="/Movie/" element={<MoviePage />} />    
           <Route path="/movie/:url" element={<MovieDetailPage />} />
           <Route path="/trailer/*" element={<TrailerPage />} /> 
-          <Route path="/trailer/:movieId" element={<TrailerPage />} />
+          <Route path="/trailer/:movieId" element={<TrailerPage />} /> */}
 
     
           
