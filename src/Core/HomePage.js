@@ -159,10 +159,11 @@ const HomePage = () => {
           onMouseLeave={() => setIsNavExpanded(false)}
           isMobileNavOpen={isMobileNavOpen}
         >
-          <Logo src={logo} alt="Logo" />
+          
           {!isSubscribed && (
             <SubscribeButton onClick={handleSubscribe}>Subscribe Now</SubscribeButton>
           )}
+          <Logo src={logo} alt="Logo" />
           <NavItemsContainer>
             <NavItem>
               <img src={homeIcon} alt="" />
