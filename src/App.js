@@ -42,8 +42,8 @@ const App = () => {
 
 
 
-          <Route path="/Home" exact element={<Indrajala />} />
-          <Route path="*" element={<Indrajala />} />
+          <Route path="/Home" exact element={<HomePage />} />
+          <Route path="*" element={<HomePage />} />
           
           
             <Route path="/Movie/" element={<MoviePage />} />    
