@@ -152,8 +152,8 @@ export const Button = styled.button`
   @media (max-width: 768px) {
     padding: 10px;
     font-size: 14px;
-    width: 40px;
-    height: 40px;
+    width: 200px;
+    height: 50px;
   }
 `;
 
