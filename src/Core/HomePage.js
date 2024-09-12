@@ -287,23 +287,7 @@ const HomePage = () => {
             </MovieGridContainer>
             <br/>
 
-            <SectionTitle>Most Viewed</SectionTitle>
-            <MovieGridContainer>
-              {movies.map((movie) => (
-                <MovieItem 
-                  key={movie._id} 
-                  onClick={() => handleMovieClick(movie.url)}
-                >
-                  <MovieImage src={getFullImageUrl(movie.movieMobileImage)} alt={movie.movieName} />
-                  <MovieInfo>
-                    <MovieTitle>{movie.movieName}</MovieTitle>
-                    <MovieRating className="desktop-only">★ {movie.rating}</MovieRating>
-                    <MovieDescription>{movie.description}</MovieDescription>
-                    <WatchNowButton>Watch Now</WatchNowButton>
-                  </MovieInfo>
-                </MovieItem>
-              ))}
-            </MovieGridContainer>
+           
 
 
 
