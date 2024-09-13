@@ -29,7 +29,6 @@ const RegisterPage = () => {
         const data = await response.json();
         console.log('API Response:', data); // Log the response for debugging
 
-        // Ensure the token and expiryDate are in the response
         if (data.token && data.expiryDate) {
           localStorage.setItem('token', data.token);
           localStorage.setItem('expiryDate', data.expiryDate);
@@ -85,7 +84,7 @@ const RegisterPage = () => {
         <div className="form-group">
           <button type="submit" className="register-button">Register</button>
         </div>
-        <div className="form-group">
+        <div className="form-group login-link-container">
           <Link to="/login" className="login-link">
             Already have an account? Login
           </Link>
