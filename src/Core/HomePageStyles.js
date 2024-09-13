@@ -63,7 +63,7 @@ export const Logo = styled.img`
 
 export const RedStrip = styled.div`
   width: 96%;
-  height: 275px; /* Adjust height if needed */
+  height: 350px; /* Adjust height if needed */
   background-color: red;
   margin: 0 auto; /* Centers the strip */
   position: relative; /* You can change this based on positioning needs */
