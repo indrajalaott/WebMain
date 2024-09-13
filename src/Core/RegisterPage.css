@@ -1,9 +1,10 @@
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background: url('../assets/background.jpg') no-repeat center center fixed;
+  background-color: #111; /* Dark background */
+  background-image: url('../assets/background.jpg');
   background-size: cover;
-  color: #e0e0e0;
+  
 }
 
 .register-container {
@@ -14,8 +15,7 @@ body {
   height: 100vh;
   background: linear-gradient(to bottom, #000, #111); /* Dark gradient */
   padding: 20px;
-  box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
-  border-radius: 10px;
+
 }
 
 h1 {
