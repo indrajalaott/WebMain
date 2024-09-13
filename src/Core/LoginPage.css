@@ -15,7 +15,7 @@ body {
   align-items: center;
   height: 100vh;
   background: rgba(0, 0, 0, 0.6);
-  padding: 20px;
+  padding: 40px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
   border-radius: 15px;
 }
@@ -38,26 +38,22 @@ h1 {
 
 .login-form {
   width: 100%;
-  max-width: 520px;
+  max-width: 620px; /* Increased the width */
+  padding: 50px; /* Added more padding */
   background-color: #17161C;
-  padding: 40px;
-  border-radius: 15px;
+  border-radius: 20px;
   box-shadow: 0 4px 25px rgba(0, 0, 0, 0.5);
-  display: flex;
-  flex-direction: column;
-  align-items: center; /* Center align the form items */
-}
-
-.form-group {
-  margin-bottom: 20px;
-  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.form-group.email-group {
-  margin-top: 4%; /* Adds space above the email input */
+.form-group {
+  margin-bottom: 25px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 label {
@@ -70,41 +66,37 @@ label {
 }
 
 input {
-  width: 65%; /* Occupies 80% of the container width */
-  max-width: 400px; /* Maximum width constraint */
-  padding: 12px; /* Padding inside the input */
-  border: 1px solid #ffffff; /* Border color */
-  border-radius: 50px 50px 0 0; /* Rounded top corners only */
-  background: #ffffff; /* Background color */
-  color: #000000; /* Text color */
-  font-size: 1rem; /* Font size */
-  text-align: center; /* Text alignment */
-  box-sizing: border-box; /* Includes padding and border in the width */
-  display: block; /* Ensures it's a block-level element */
-  margin: 0 auto; /* Centers it horizontally if it's in a container */
+  width: 80%; /* Adjusted width for larger screens */
+  max-width: 400px;
+  padding: 14px;
+  border: 1px solid #ffffff;
+  border-radius: 55%; /* Curved border with 55% */
+  background: #ffffff;
+  color: #000000;
+  font-size: 1rem;
+  text-align: center;
+  box-sizing: border-box;
+  margin: 0 auto;
 }
-
 
 input:focus {
   outline: none;
-  
 }
 
 .login-button {
   width: 100%;
-  max-width: 200px; /* Optional: Set a max-width for better control */
-  padding: 10px;
+  max-width: 250px;
+  padding: 15px;
   background-color: #ff2d72;
   color: #ffffff;
   border: none;
-  border-radius: 50px;
+  border-radius: 50px; /* Rounded corners */
   cursor: pointer;
   font-family: 'Roboto Medium', sans-serif;
   font-weight: 300;
   font-size: 18pt;
   transition: background-color 0.3s ease, transform 0.2s ease;
-  display: block; /* Ensure it's a block element */
-  margin: 0 auto; /* Center it horizontally */
+  margin: 0 auto;
 }
 
 .login-button:hover {
@@ -114,25 +106,26 @@ input:focus {
 
 .register-link,
 .forgot-password-link {
-  display: inline-block; /* Align links in a single line */
-  margin: 0 10px; /* Adjust spacing between links */
+  display: block;
+  width: 100%; /* Full width */
+  text-align: center; /* Centered text */
+  margin: 10px 0;
   color: #ffffff;
-  text-decoration: none; /* Remove underline by default */
+  text-decoration: none;
   font-family: 'Roboto Medium', sans-serif;
   font-weight: 200;
   font-size: 18pt;
-  text-align: center;
 }
 
 .register-link:hover,
 .forgot-password-link:hover {
-  text-decoration: none; /* Ensure no underline on hover */
+  text-decoration: none;
 }
 
 /* Media query for mobile responsiveness */
 @media (max-width: 768px) {
   .login-container {
-    padding: 10px;
+    padding: 30px;
   }
 
   .login-form {
@@ -144,7 +137,7 @@ input:focus {
   }
 
   input {
-    width: 100%;
+    width: 75%; /* Adjusting width to 75% of screen for mobile */
     padding: 10px;
   }
 
@@ -154,7 +147,7 @@ input:focus {
 
   .register-link,
   .forgot-password-link {
-    display: block; /* Stack links vertically on smaller screens */
-    margin: 10px 0; /* Adjust margin for vertical stacking */
+    display: block;
+    margin: 10px 0;
   }
 }
