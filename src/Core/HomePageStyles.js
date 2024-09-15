@@ -63,8 +63,16 @@ export const Logo = styled.img`
 
 export const RedStrip = styled.div`
   width: 96%;
-  height: 300px; /* Adjust height if needed */
+  height: 250px; /* Adjust height if needed */
   background-color: red;
+  margin: 0 auto; /* Centers the strip */
+  position: relative; /* You can change this based on positioning needs */
+  top: 10px; /* Adjust to control the spacing below the Search icon */
+`;
+
+export const NillStrip = styled.div`
+  width: 96%;
+  height: 25px; /* Adjust height if needed */
   margin: 0 auto; /* Centers the strip */
   position: relative; /* You can change this based on positioning needs */
   top: 10px; /* Adjust to control the spacing below the Search icon */

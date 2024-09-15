@@ -24,6 +24,7 @@ import {
   NavItemsContainer,
   Logo,
   RedStrip,
+  NillStrip,
   SubscribeButton,
   FeaturedMovieContainer,
   FeaturedMovieItem,
@@ -126,6 +127,15 @@ const HomePage = () => {
     navigate('/subscribe');
   };
 
+  const handleLogout = () => {
+    // Remove the token and expiryDate from localStorage
+    localStorage.removeItem('token');
+    localStorage.removeItem('expiryDate');
+    
+    // Redirect to the home page
+    window.location.href = '/';
+  };
+  
   const handleFeaturedMovieChange = (index) => {
     setCurrentFeaturedMovie(index);
   };
@@ -179,6 +189,8 @@ const HomePage = () => {
               <span aria-label="Search">Search</span>
             </NavItem>
             <RedStrip /> {/* Red tape element */}
+            <NillStrip/>
+            <SubscribeButton onClick={handleLogout}>Logout</SubscribeButton>
           </NavItemsContainer>
         </Navbar>
         {isMobileNavOpen && <MobileNavOverlay onClick={toggleMobileNav} />}
