@@ -8,8 +8,9 @@ import Footer from './Footer';
 
 const plans = [
   { id: 1, name: 'Basic', price: 3.75, features: ['Full HD streaming', '1 device at a time', '15 Days of Validity'] },
-  { id: 2, name: 'Standard', price: 7.5, features: ['Full HD streaming', '2 devices at a time', '30 Days of Validity'] },
-  { id: 3, name: 'Premium', price: 11.75, features: ['Full HD streaming', '3 devices at a time', '60 Days of Validity'] },
+  { id: 2, name: 'Gold', price: 5.0, features: ['Full HD streaming', '2 devices at a time', '30 Days of Validity'] },
+  { id: 3, name: 'Standard', price: 7.5, features: ['Full HD streaming', '2 devices at a time', '60 Days of Validity'] },
+  { id: 4, name: 'Premium', price: 11.75, features: ['Full HD streaming', '3 devices at a time', '90 Days of Validity'] },
 ];
 
 const CheckoutPage = () => {

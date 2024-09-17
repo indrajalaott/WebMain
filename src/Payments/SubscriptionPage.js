@@ -4,8 +4,9 @@ import './SubscriptionPage.css';
 
 const plans = [
   { id: 1, name: 'Basic', priceINR: 299, priceUSD: 3.75, features: ['Full HD streaming', '1 device at a time', '15 Days of Validity'] },
-  { id: 2, name: 'Standard', priceINR: 599, priceUSD: 7.5, features: ['Full HD streaming', '2 devices at a time', '30 Days of Validity'] },
-  { id: 3, name: 'Premium', priceINR: 999, priceUSD: 11.75, features: ['Full HD streaming', '3 devices at a time', '60 Days of Validity'] },
+  { id: 2, name: 'Gold', priceINR: 399, priceUSD: 5.0, features: ['Full HD streaming', '1 device at a time', '30 Days of Validity'] },
+  { id: 3, name: 'Standard', priceINR: 599, priceUSD: 7.5, features: ['Full HD streaming', '2 devices at a time', '60 Days of Validity'] },
+  { id: 4, name: 'Premium', priceINR: 999, priceUSD: 11.75, features: ['Full HD streaming', '3 devices at a time', '90 Days of Validity'] },
 ];
 
 const SubscriptionPage = () => {
