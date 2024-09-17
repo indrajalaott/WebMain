@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { fetchMovies, HoverMovies } from '../utils/api';
+import { fetchMovies, HoverMovies,toptrending,topfiveMovies,upcomming } from '../utils/api';
 import {
   GlobalStyle,
   AppContainer,
@@ -49,6 +49,7 @@ import topfive from '../assets/topfive.png';
 const HomePage = () => {
   const [movies, setMovies] = useState([]);
   const [hoverMovies, setHoverMovies] = useState([]);
+  const [trendingMovies, setTrendingMovies] = useState([]); // Define trendingMovies and setTrendingMovies
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [isNavExpanded, setIsNavExpanded] = useState(false);
@@ -60,7 +61,7 @@ const HomePage = () => {
   useEffect(() => {
 
 
-      const urlParams = new URLSearchParams(window.location.search);
+    const urlParams = new URLSearchParams(window.location.search);
     const token = urlParams.get('jwt');
     const expiryDate = urlParams.get('exp');
 
@@ -73,12 +74,14 @@ const HomePage = () => {
 
     const fetchData = async () => {
       try {
-        const [moviesData, hoverMoviesData] = await Promise.all([
+        const [moviesData, hoverMoviesData, trendingMoviesData] = await Promise.all([
           fetchMovies(),
-          HoverMovies()
+          HoverMovies(),
+          toptrending()  // Fetch trending movies
         ]);
         setMovies(moviesData);
         setHoverMovies(hoverMoviesData);
+        setTrendingMovies(trendingMoviesData);  // Set trending movies state
         setIsLoading(false);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -239,25 +242,28 @@ const HomePage = () => {
               ))}
             </CarouselIndicator>
 
+
+           
             <SectionTitle>
-              <img src={trending} alt="Trending" />
-            </SectionTitle>
-            <MovieGridContainer>
-              {movies.map((movie) => (
-                <MovieItem 
-                  key={movie._id} 
-                  onClick={() => handleMovieClick(movie.url)}
-                >
-                  <MovieImage src={getFullImageUrl(movie.movieMobileImage)} alt={movie.movieName} />
-                  <MovieInfo>
-                    <MovieTitle>{movie.movieName}</MovieTitle>
-                    <MovieRating className="desktop-only">★ {movie.rating}</MovieRating>
-                    <MovieDescription>{movie.description}</MovieDescription>
-                    <WatchNowButton>Watch Now</WatchNowButton>
-                  </MovieInfo>
-                </MovieItem>
-              ))}
-            </MovieGridContainer>
+                <img src={trending} alt="Trending" />
+              </SectionTitle>
+              <MovieGridContainer>
+                {trendingMovies.map((movie) => (
+                  <MovieItem 
+                    key={movie._id} 
+                    onClick={() => handleMovieClick(movie.url)}
+                  >
+                    <MovieImage src={getFullImageUrl(movie.movieMobileImage)} alt={movie.movieName} />
+                    <MovieInfo>
+                      <MovieTitle>{movie.movieName}</MovieTitle>
+                      <MovieRating className="desktop-only">★ {movie.rating}</MovieRating>
+                      <MovieDescription>{movie.description}</MovieDescription>
+                      <WatchNowButton>Watch Now</WatchNowButton>
+                    </MovieInfo>
+                  </MovieItem>
+                ))}
+              </MovieGridContainer>
+
 
               <br/>
               <SectionTitle>

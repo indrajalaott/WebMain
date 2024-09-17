@@ -13,7 +13,7 @@ export const fetchMovies = async () => {
 
 
 
-  export const topfive = async () => {
+  export const topfiveMovies = async () => {
     const response = await fetch('https://api.indrajala.in/api/admin/topfive');
     const data = await response.json();
     return data;
