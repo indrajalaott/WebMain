@@ -41,7 +41,7 @@ const CheckoutPage = () => {
 
     const paymentData = {
       ...formData,
-      Option: plans.id,
+      Option: plan.id,
     };
 
     try {
