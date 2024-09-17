@@ -51,7 +51,7 @@ const CheckoutPage = () => {
     const paymentData = {
       Token: token,
       PhoneNumber: formData.phoneNumber,
-      OrderId: `ORD${Date.now()}`, // Generate a unique OrderId
+      OrderId:plan.id , 
     };
   
 
