@@ -90,6 +90,7 @@ const HomePage = () => {
         setHoverMovies(hoverMoviesData);
         setTrendingMovies(trendingMoviesData);  // Set trending movies state
         setTopFiveMovies(topFiveMoviesData); // Set top five movies state
+        setUpcomingMovies(upcomingMoviesData); // Set upcoming movies data
 
       
         setIsLoading(false);
