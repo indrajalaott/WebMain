@@ -292,7 +292,7 @@ const HomePage = () => {
               <img src={upcoming} alt="Upcoming" />
             </SectionTitle>
             <MovieGridContainer>
-              {movies.map((movie) => (
+              {upcomingMovies.map((movie) => (
                 <MovieItem 
                   key={movie._id} 
                   onClick={() => handleMovieClick(movie.url)}
