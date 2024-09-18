@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { fetchMovies, HoverMovies,toptrending,topfiveMovies,upcomming } from '../utils/api';
+import { fetchMovies,toptrending,topfiveMovies,upcomming } from '../utils/api';
 import {
   GlobalStyle,
   AppContainer,
@@ -49,6 +49,7 @@ import topfive from '../assets/topfive.png';
 const HomePage = () => {
   const [movies, setMovies] = useState([]);
   const [hoverMovies, setHoverMovies] = useState([]);
+  const [CorrosilDesk, setCorrosilDesk] = useState([]);
   const [trendingMovies, setTrendingMovies] = useState([]); // Define trendingMovies and setTrendingMovies
   const [topFiveMovies, setTopFiveMovies] = useState([]); // Add this line to handle Top Five movies data
   const [upcomingMovies, setUpcomingMovies] = useState([]); // Add state for upcoming movies
@@ -78,7 +79,7 @@ const HomePage = () => {
       try {
         const [moviesData, hoverMoviesData, trendingMoviesData, topFiveMoviesData,upcomingMoviesData ] = await Promise.all([
           fetchMovies(),
-          HoverMovies(),
+          fetchMovies(),    // Fetch Corrosil desktop movies
           toptrending(),  // Fetch trending movies
           topfiveMovies(),  // Fetch top five movies here
           upcomming() // Call the upcomming API
@@ -87,6 +88,7 @@ const HomePage = () => {
 
         ]);
         setMovies(moviesData);
+        setCorrosilDesk(moviesData);           // Set Corrosil desktop movies
         setHoverMovies(hoverMoviesData);
         setTrendingMovies(trendingMoviesData);  // Set trending movies state
         setTopFiveMovies(topFiveMoviesData); // Set top five movies state
