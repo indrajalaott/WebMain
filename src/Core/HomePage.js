@@ -50,6 +50,7 @@ const HomePage = () => {
   const [movies, setMovies] = useState([]);
   const [hoverMovies, setHoverMovies] = useState([]);
   const [trendingMovies, setTrendingMovies] = useState([]); // Define trendingMovies and setTrendingMovies
+  const [topFiveMovies, setTopFiveMovies] = useState([]); // Add this line to handle Top Five movies data
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [isNavExpanded, setIsNavExpanded] = useState(false);
@@ -74,14 +75,21 @@ const HomePage = () => {
 
     const fetchData = async () => {
       try {
-        const [moviesData, hoverMoviesData, trendingMoviesData] = await Promise.all([
+        const [moviesData, hoverMoviesData, trendingMoviesData, topFiveMoviesData] = await Promise.all([
           fetchMovies(),
           HoverMovies(),
-          toptrending()  // Fetch trending movies
+          toptrending(),  // Fetch trending movies
+          topfiveMovies(),  // Fetch top five movies here
+
+       
+
         ]);
         setMovies(moviesData);
         setHoverMovies(hoverMoviesData);
         setTrendingMovies(trendingMoviesData);  // Set trending movies state
+        setTopFiveMovies(topFiveMoviesData); // Set top five movies state
+
+      
         setIsLoading(false);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -311,7 +319,7 @@ const HomePage = () => {
               <img src={topfive} alt="Top 5" />
             </SectionTitle>
             <MovieGridContainer>
-              {movies.map((movie) => (
+              {topFiveMovies.map((movie) => (
                 <MovieItem 
                   key={movie._id} 
                   onClick={() => handleMovieClick(movie.url)}
