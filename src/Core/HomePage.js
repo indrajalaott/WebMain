@@ -242,8 +242,13 @@ const HomePage = () => {
               ))}
             </CarouselIndicator>
 
+ 
 
-           
+
+ {/*-------------------.---- INDIA PAK BORDER NO WAY YOU TOUCH HERE -------------------  */} 
+
+
+           {/*-------------- Trending Page Wala Code Snip Start Here  ----- API Is been fetched  */}
             <SectionTitle>
                 <img src={trending} alt="Trending" />
               </SectionTitle>
@@ -264,8 +269,14 @@ const HomePage = () => {
                 ))}
               </MovieGridContainer>
 
+              {/*-------------- Trending Page Wala Code Snip End Here  -----No Error Here don't touch unless necesery  */}
+
+
+ {/*-------------------.---- INDIA PAK BORDER NO WAY YOU TOUCH HERE -------------------  */} 
 
               <br/>
+
+              {/*-------------- Upcomming Section Code Start Here .......  */}
               <SectionTitle>
               <img src={upcoming} alt="Upcoming" />
             </SectionTitle>
@@ -285,8 +296,17 @@ const HomePage = () => {
                 </MovieItem>
               ))}
             </MovieGridContainer>
+
+              {/*-------------- Upcomming Section Code  End Here.......  */} 
+
+            
             <br/>
 
+
+ {/*-------------------.---- INDIA PAK BORDER NO WAY YOU TOUCH HERE -------------------  */} 
+
+
+            {/*-------------- Top Five Section Code  Start Here.......  */}     
             <SectionTitle>
               <img src={topfive} alt="Top 5" />
             </SectionTitle>
@@ -306,6 +326,10 @@ const HomePage = () => {
                 </MovieItem>
               ))}
             </MovieGridContainer>
+
+
+
+            {/*-------------- Top Five Section Code  End Here.......  */} 
             <br/>
 
            
