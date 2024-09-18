@@ -76,11 +76,12 @@ const HomePage = () => {
 
     const fetchData = async () => {
       try {
-        const [moviesData, hoverMoviesData, trendingMoviesData, topFiveMoviesData] = await Promise.all([
+        const [moviesData, hoverMoviesData, trendingMoviesData, topFiveMoviesData,upcomingMoviesData ] = await Promise.all([
           fetchMovies(),
           HoverMovies(),
           toptrending(),  // Fetch trending movies
           topfiveMovies(),  // Fetch top five movies here
+          upcomming() // Call the upcomming API
 
        
 
