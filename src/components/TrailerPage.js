@@ -16,6 +16,7 @@ const TrailerPage = () => {
   const [currentTime, setCurrentTime] = useState('0:00');
   const [duration, setDuration] = useState('0:00');
   const [isFullScreen, setIsFullScreen] = useState(false);
+  const [controlsVisible, setControlsVisible] = useState(true);
 
   useEffect(() => {
     const viewIdT = localStorage.getItem('viewIdT');
@@ -40,7 +41,6 @@ const TrailerPage = () => {
     fetchTrailer();
   }, [movieId, navigate]);
 
-  // Play or pause the video
   const handlePlayPause = () => {
     if (videoRef.current) {
       if (isPlaying) {
@@ -49,11 +49,11 @@ const TrailerPage = () => {
       } else {
         videoRef.current.play();
         setIsPlaying(true);
+        hideControlsAfterDelay();
       }
     }
   };
 
-  // Mute or unmute the video
   const handleMute = () => {
     if (videoRef.current) {
       videoRef.current.muted = !isMuted;
@@ -61,7 +61,6 @@ const TrailerPage = () => {
     }
   };
 
-  // Handle volume change
   const handleVolumeChange = (e) => {
     const newVolume = parseFloat(e.target.value);
     if (videoRef.current) {
@@ -71,7 +70,6 @@ const TrailerPage = () => {
     }
   };
 
-  // Update the progress of the video
   const handleProgressChange = (e) => {
     const newTime = (e.target.value / 100) * videoRef.current.duration;
     if (videoRef.current) {
@@ -79,7 +77,6 @@ const TrailerPage = () => {
     }
   };
 
-  // Update progress based on the current video time
   const updateProgress = () => {
     if (videoRef.current) {
       const progressValue = (videoRef.current.currentTime / videoRef.current.duration) * 100;
@@ -88,28 +85,24 @@ const TrailerPage = () => {
     }
   };
 
-  // Format time for display
   const formatTime = (time) => {
     const minutes = Math.floor(time / 60);
     const seconds = Math.floor(time % 60);
     return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
   };
 
-  // Set video duration when metadata is loaded
   const handleLoadedMetadata = () => {
     if (videoRef.current) {
       setDuration(formatTime(videoRef.current.duration));
     }
   };
 
-  // Skip the video forward or backward by seconds
   const handleSkip = (seconds) => {
     if (videoRef.current) {
       videoRef.current.currentTime += seconds;
     }
   };
 
-  // Toggle fullscreen mode
   const toggleFullScreen = () => {
     if (!document.fullscreenElement) {
       if (containerRef.current.requestFullscreen) {
@@ -133,28 +126,22 @@ const TrailerPage = () => {
     };
   }, []);
 
-  // Handle double tap (skip forward/backward)
-  const handleDoubleTap = (e) => {
-    const { clientX } = e;
-    const { clientWidth } = containerRef.current;
-    const midPoint = clientWidth / 2;
-
-    if (clientX < midPoint) {
-      handleSkip(-10);
-    } else {
-      handleSkip(10);
-    }
-  };
-
-  // Handle single tap (play/pause)
   const handleSingleTap = () => {
+    setControlsVisible(true);
     handlePlayPause();
   };
 
-  // Control Panel for the video
+  const hideControlsAfterDelay = () => {
+    setTimeout(() => {
+      if (isPlaying) {
+        setControlsVisible(false);
+      }
+    }, 5000);
+  };
+
   const ControlPanel = () => (
-    <div className="controls">
-      <div className="progress-bar-container">
+    <div className={`controls ${controlsVisible ? 'visible' : 'hidden'}`}>
+      <div className="progress-fullscreen">
         <input
           type="range"
           min="0"
@@ -163,6 +150,9 @@ const TrailerPage = () => {
           onChange={handleProgressChange}
           className="progress-bar"
         />
+        <button onClick={toggleFullScreen} className="fullscreen-button">
+          {isFullScreen ? '⤓' : '⤢'}
+        </button>
       </div>
       <div className="button-container">
         <button onClick={() => handleSkip(-10)}>⏪</button>
@@ -181,22 +171,18 @@ const TrailerPage = () => {
           />
         </div>
         <span className="time-display">{currentTime} / {duration}</span>
-        <button onClick={toggleFullScreen} className="fullscreen-button">
-          {isFullScreen ? '⤓' : '⤢'}
-        </button>
       </div>
     </div>
   );
 
   return (
-    <div className="container" ref={containerRef} onDoubleClick={handleDoubleTap} onClick={handleSingleTap}>
+    <div className="container" ref={containerRef} onClick={handleSingleTap}>
       {trailerUrl ? (
         <div className="video-container">
           <video
             ref={videoRef}
             src={trailerUrl}
             onError={(e) => setError('Error loading video: ' + e.target.error.message)}
-            onContextMenu={(e) => e.preventDefault()}
             onTimeUpdate={updateProgress}
             onLoadedMetadata={handleLoadedMetadata}
           >
