@@ -51,6 +51,7 @@ const HomePage = () => {
   const [hoverMovies, setHoverMovies] = useState([]);
   const [trendingMovies, setTrendingMovies] = useState([]); // Define trendingMovies and setTrendingMovies
   const [topFiveMovies, setTopFiveMovies] = useState([]); // Add this line to handle Top Five movies data
+  const [upcomingMovies, setUpcomingMovies] = useState([]); // Add state for upcoming movies
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [isNavExpanded, setIsNavExpanded] = useState(false);
