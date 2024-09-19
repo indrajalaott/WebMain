@@ -15,6 +15,7 @@ const SubscriptionPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
 
+  
   useEffect(() => {
     checkUserCountry();
   }, []);
