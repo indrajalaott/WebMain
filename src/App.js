@@ -15,9 +15,10 @@ import theme from './StyleSheets/theme';
 import LandingPage from './Core/LandingPage';
 
 
+
 import Profile from './Core/Profile';
 import PayScreen from './Payments/SubscriptionPage';
-import Checkout from './Payments/CheckoutPage';
+import Checkout from './Payments/CheckOutInd';
 import RazorPay from './Payments/OrdersRazorPay';
 import Broke from './Payments/Broken';
 
