@@ -16,6 +16,7 @@ const TrailerPage = () => {
   const [currentTime, setCurrentTime] = useState('0:00');
   const [duration, setDuration] = useState('0:00');
   const [isFullScreen, setIsFullScreen] = useState(false);
+  const [controlsVisible, setControlsVisible] = useState(true); // State to manage controls visibility
 
   useEffect(() => {
     const fetchTrailer = async () => {
@@ -27,7 +28,6 @@ const TrailerPage = () => {
       if (!storedToken || !storedExpiryDate) {
         setError('Authentication details missing');
         navigate('/');
-        
         return;
       }
 
@@ -61,7 +61,19 @@ const TrailerPage = () => {
     };
 
     fetchTrailer();
-  }, [movieId]);
+  }, [movieId, navigate]);
+
+  useEffect(() => {
+    let fadeOutTimer;
+
+    if (isPlaying && controlsVisible) {
+      fadeOutTimer = setTimeout(() => {
+        setControlsVisible(false); // Hide controls after 2.5 seconds
+      }, 2500);
+    }
+
+    return () => clearTimeout(fadeOutTimer);
+  }, [isPlaying, controlsVisible]);
 
   // Play or pause the video
   const handlePlayPause = () => {
@@ -73,6 +85,7 @@ const TrailerPage = () => {
         videoRef.current.play();
         setIsPlaying(true);
       }
+      setControlsVisible(true); // Show controls when playing
     }
   };
 
@@ -174,9 +187,14 @@ const TrailerPage = () => {
     handlePlayPause();
   };
 
+  // Handle click to show controls
+  const handleContainerClick = () => {
+    setControlsVisible(true); // Show controls on click
+  };
+
   // Control Panel for the video
   const ControlPanel = () => (
-    <div className="controls">
+    <div className={`controls ${controlsVisible ? 'visible' : 'hidden'}`}>
       <div className="progress-bar-container">
         <input
           type="range"
@@ -188,11 +206,13 @@ const TrailerPage = () => {
         />
       </div>
       <div className="button-container">
-        <button onClick={() => handleSkip(-10)}>⏪</button>
-        <button onClick={handlePlayPause}>{isPlaying ? '❚❚' : '▶'}</button>
-        <button onClick={() => handleSkip(10)}>⏩</button>
+        <button onClick={handlePlayPause} className="play-pause">
+          {isPlaying ? '❚❚' : '▶'}
+        </button>
         <div className="volume-control">
-          <button onClick={handleMute}>{isMuted ? '🔇' : '🔊'}</button>
+          <button onClick={handleMute} className="mute">
+            {isMuted ? '🔇' : '🔊'}
+          </button>
           <input
             type="range"
             min="0"
@@ -204,7 +224,7 @@ const TrailerPage = () => {
           />
         </div>
         <span className="time-display">{currentTime} / {duration}</span>
-        <button onClick={toggleFullScreen} className="fullscreen-button">
+        <button onClick={toggleFullScreen} className="fullscreen">
           {isFullScreen ? '⤓' : '⤢'}
         </button>
       </div>
@@ -214,17 +234,15 @@ const TrailerPage = () => {
   return (
     <div className="container" ref={containerRef} onDoubleClick={handleDoubleTap} onClick={handleSingleTap}>
       {trailerUrl ? (
-        <div className="video-container">
+        <div className="video-container" onClick={handleContainerClick}>
           <video
             ref={videoRef}
             src={trailerUrl}
             onError={(e) => setError('Error loading video: ' + e.target.error.message)}
-            onContextMenu={(e) => e.preventDefault()}
             onTimeUpdate={updateProgress}
             onLoadedMetadata={handleLoadedMetadata}
-          >
-            Your browser does not support the video tag.
-          </video>
+            controls={false}
+          />
           <ControlPanel />
         </div>
       ) : error ? (
