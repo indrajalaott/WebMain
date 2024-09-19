@@ -428,6 +428,12 @@ export const FeaturedMovieTitle = styled.h2`
   margin-bottom: 10px;
   color: #ffffff;
   text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+
+  @media (max-width: 767px) {
+    font-size: 35px; /* Set font size to 88px */
+  }
+
+
 `;
 
 
