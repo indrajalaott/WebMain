@@ -83,7 +83,7 @@ const CheckoutPage = () => {
         handler: async (response) => {
             console.log("response", response)
             try {
-              const res = await fetch('https://api.indrajala.in/api/pay/checkPay', {
+              const res = await fetch('https://api.indrajala.in/api/pay/checkstatus', {
                 method: 'POST',
                     headers: {
                         'content-type': 'application/json'
