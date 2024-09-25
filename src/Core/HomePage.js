@@ -107,14 +107,33 @@ const HomePage = () => {
     checkSubscriptionStatus();
   }, []);
 
-  const checkSubscriptionStatus = () => {
+  const checkSubscriptionStatus = async () => {
     const token = localStorage.getItem('token');
-    const expiryDate = localStorage.getItem('expiryDate');
-    
-    if (!token || (expiryDate && new Date(expiryDate) < new Date())) {
+
+    if (!token) {
       setIsSubscribed(false);
-    } else {
-      setIsSubscribed(true);
+      return;
+    }
+
+    try {
+      const response = await fetch('https://api.indrajala.in/api/user/checkexp', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ token }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.valid) {
+        setIsSubscribed(true); // Token is valid
+      } else {
+        setIsSubscribed(false); // Token has expired
+      }
+    } catch (error) {
+      console.error('Error checking subscription status:', error);
+      setIsSubscribed(false);
     }
   };
 
