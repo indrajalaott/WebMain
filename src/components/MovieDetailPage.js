@@ -25,7 +25,7 @@ const MovieDetailPage = () => {
   const { url } = useParams();
   const [movie, setMovie] = useState(null);
   const [token, setToken] = useState(null);
-  const [expiryDate, setExpiryDate] = useState(null);
+  const [isTokenValid, setIsTokenValid] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -47,16 +47,35 @@ const MovieDetailPage = () => {
       }
     };
 
-    // Check token expiration
-    const checkTokenExpiration = () => {
-      const storedExpiryDate = localStorage.getItem('expiryDate');
-      const expiryDate = storedExpiryDate ? new Date(storedExpiryDate) : new Date('2000-01-01');
-      setExpiryDate(expiryDate);
+    // Check token expiration via API
+    const checkTokenExpiration = async () => {
+      if (storedToken) {
+        try {
+          const response = await fetch('https://api.indrajala.in/api/user/checkexp', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ token: storedToken }),
+          });
+
+          if (!response.ok) {
+            throw new Error('Failed to check token expiration');
+          }
+
+          const data = await response.json();
+          setIsTokenValid(data.isValid);
+        } catch (error) {
+          console.error('Error checking token expiration:', error);
+        }
+      } else {
+        setIsTokenValid(false); // If no token is found, consider it expired/invalid
+      }
     };
 
     fetchMovieDetails();
     checkTokenExpiration();
-  }, [url, navigate]);
+  }, [url]);
 
   if (!movie) return <Loading>Loading...</Loading>;
 
@@ -83,8 +102,6 @@ const MovieDetailPage = () => {
     window.location.href = '/Subscribe';
   };
 
-  const isExpired = expiryDate && expiryDate < new Date();
-
   return (
     <Container>
       <ImageContainer>
@@ -107,7 +124,7 @@ const MovieDetailPage = () => {
         <Description>{movie.description}</Description>
         <Starring>Starring: {movie.starring.join(', ')}</Starring>
         <ButtonContainer>
-          {(!token || isExpired) ? (
+          {(!token || !isTokenValid) ? (
             <>
               <Button onClick={handleViewTrailer}>
                 <FaPlay style={{ marginRight: '8px' }} /> View Trailer
