@@ -21,25 +21,46 @@ const TrailerPage = () => {
   useEffect(() => {
     const fetchTrailer = async () => {
       const storedToken = localStorage.getItem('token');
-      const storedExpiryDate = localStorage.getItem('expiryDate');
-      const viewId = localStorage.getItem('viewId');
+      const viewId = localStorage.getItem('MovieIDView');
 
-      // Check if token and expiryDate are valid
-      if (!storedToken || !storedExpiryDate) {
+      if (!storedToken) {
         setError('Authentication details missing');
         navigate('/');
         return;
       }
 
-      const expiryDate = new Date(storedExpiryDate);
-      if (expiryDate < new Date()) {
-        setError('Token has expired');
-        navigate('/');
-        return;
-      }
+      // Check token validity using API
+      const checkTokenValidity = async () => {
+        try {
+          const response = await fetch('https://api.indrajala.in/api/user/checkexp', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ token: storedToken }),
+          });
+
+          const data = await response.json();
+
+          if (response.ok && data.isValid) {
+            console.log('Token is valid');
+          } else {
+            setError('Token has expired');
+            navigate('/');
+            return;
+          }
+        } catch (error) {
+          console.error('Error checking token validity:', error);
+          setError('Error validating token');
+          navigate('/');
+          return;
+        }
+      };
+
+      await checkTokenValidity(); // Ensure token is validated before proceeding
 
       // Use viewId if it exists, otherwise use movieId from params
-      const movieToFetch = viewId || movieId;
+      const movieToFetch = viewId;
 
       if (!movieToFetch) {
         setError('Movie ID is undefined');
@@ -47,6 +68,7 @@ const TrailerPage = () => {
         return;
       }
 
+      // Fetch trailer URL for the movie
       try {
         const response = await fetch(`https://api.indrajala.in/api/user/DeltaFetchMovie/${movieToFetch}`);
         if (!response.ok) {

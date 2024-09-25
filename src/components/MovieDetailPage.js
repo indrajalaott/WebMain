@@ -90,7 +90,7 @@ const MovieDetailPage = () => {
 
   const handleViewMovie = () => {
     if (movie._id) {
-      localStorage.setItem('viewId', movie.url);
+      localStorage.setItem('MovieIDView', movie.url);
       navigate(`/Movie/`);
     } else {
       console.error('Movie ID is undefined');
