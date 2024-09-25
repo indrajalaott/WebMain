@@ -126,11 +126,12 @@ const HomePage = () => {
 
       const data = await response.json();
 
-      if (response.ok && data.valid) {
+      if (response.ok && data.isValid) {
         setIsSubscribed(true); // Token is valid
       } else {
         setIsSubscribed(false); // Token has expired
       }
+      
     } catch (error) {
       console.error('Error checking subscription status:', error);
       setIsSubscribed(false);

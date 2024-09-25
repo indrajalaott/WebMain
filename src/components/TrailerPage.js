@@ -20,7 +20,8 @@ const TrailerPage = () => {
 
   useEffect(() => {
     const viewIdT = localStorage.getItem('viewIdT');
-    if (!viewIdT) {
+    const token = localStorage.getItem('token');
+    if (!token) {
       navigate('/');
     }
 
