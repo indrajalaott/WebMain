@@ -73,45 +73,61 @@ const CheckoutPage = () => {
   const handlePaymentVerify = async (data) => {
 
     console.log(data);
+    
     const options = {
-        key: "rzp_live_M0X50Vu0ZFK1WK",
-        amount: data.amount,
-        currency: data.currency,
-        name: "Indrajala Movie Makers LLP",
-        description: "Suscribion ",
-        order_id: data.id,
+        key: "rzp_live_M0X50Vu0ZFK1WK", // Your live Razorpay key
+        amount: data.amount, // Amount from the response
+        currency: data.currency, // Currency from the response
+        name: "Indrajala Movie Makers LLP", // Your business name
+        description: "Subscription", // Description of the transaction
+        order_id: data.id, // Order ID from the response
         handler: async (response) => {
-            console.log("response", response)
+            console.log("response", response);
             try {
-              const res = await fetch('https://api.indrajala.in/api/pay/checkstatus', {
-                method: 'POST',
+                const res = await fetch('https://api.indrajala.in/api/pay/checkstatus', {
+                    method: 'POST',
                     headers: {
-                        'content-type': 'application/json'
+                        'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
                         razorpay_order_id: response.razorpay_order_id,
                         razorpay_payment_id: response.razorpay_payment_id,
-                        razorpay_signature: response.razorpay_signature,
+                        razorpay_signature: response.razorpay_signature
                     })
-                })
+                });
 
                 const verifyData = await res.json();
 
                 if (verifyData.message) {
-                    toast.success(verifyData.message)
+                    toast.success(verifyData.message);
                 }
             } catch (error) {
-                console.log(error);
+                console.error("Error during payment verification:", error);
             }
         },
+        prefill: {
+          name: formData.Name, // Using the user's input from the form
+          email: formData.Email, // Using the user's input from the form
+          contact: formData.PhoneNumber // Using the user's input from the form
+      },
         theme: {
-            color: "#5f63b8"
+            color: "#5f63b8" // Theme color for the Razorpay checkout UI
         }
     };
+
     const rzp1 = new window.Razorpay(options);
+
+    // Payment failed handler
+    rzp1.on('payment.failed', function (response) {
+        alert("Payment Failed. Reason: " + response.error.reason);
+        console.error("Payment failed details:", response.error);
+        alert(response.error.description);
+    });
+
+    // Trigger the payment modal on button click
     rzp1.open();
-    
 };
+
 
 
 
