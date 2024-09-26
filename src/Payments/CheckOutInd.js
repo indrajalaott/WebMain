@@ -73,14 +73,13 @@ const CheckoutPage = () => {
   const handlePaymentVerify = async (data) => {
 
     console.log(data);
-    
     const options = {
         key: "rzp_live_M0X50Vu0ZFK1WK", // Your live Razorpay key
         amount: data.amount, // Amount from the response
         currency: data.currency, // Currency from the response
         name: "Indrajala Movie Makers LLP", // Your business name
         description: "Subscription", // Description of the transaction
-        order_id: data.id, // Order ID from the response
+        order_id: data.orderId, // Order ID from the response
         handler: async (response) => {
             console.log("response", response);
             try {
