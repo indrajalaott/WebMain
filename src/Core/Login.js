@@ -41,7 +41,7 @@ const LoginPage = () => {
 
       if (data.token && data.expiryDate) {
         localStorage.setItem('token', data.token);
-        localStorage.setItem('expiryDate', data.expiryDate);
+        
         navigate('/Home');
       } else {
         throw new Error('Invalid response from server');
