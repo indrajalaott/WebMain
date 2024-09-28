@@ -184,7 +184,7 @@ const TrailerPage = () => {
           className="progress-bar"
         />
       </div>
-      <div className="button-container">
+     
         
         <div className="volume-control">
           <button onClick={handleMute} className="mute">
@@ -196,7 +196,7 @@ const TrailerPage = () => {
           <button onClick={toggleFullScreen} className="fullscreen">
           {isFullScreen ? '⤓' : '⤢'}
         </button>
-        </div>
+   
         
       </div>
     </div>
