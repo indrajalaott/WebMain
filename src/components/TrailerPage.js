@@ -23,11 +23,42 @@ const TrailerPage = () => {
     const token = localStorage.getItem('token');
     if (!token) {
       navigate('/');
+      return;
     }
+
+    // Check token validity using API
+    const checkTokenValidity = async () => {
+      try {
+        const response = await fetch('https://api.indrajala.in/api/user/checkexp', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ token }),
+        });
+
+        const data = await response.json();
+
+        if (response.ok && data.isValid) {
+          console.log('Token is valid');
+        } else {
+          setError('Token has expired');
+          navigate('/');
+        }
+      } catch (error) {
+        console.error('Error checking token validity:', error);
+        setError('Error validating token');
+        navigate('/');
+      }
+    };
 
     const fetchTrailer = async () => {
       try {
-        const response = await fetch(`https://api.indrajala.in/api/user/PlayTrailer/${viewIdT}`);
+        const response = await fetch(`https://api.indrajala.in/api/user/PlayTrailer/${viewIdT}`, {
+          headers: {
+            'Authorization': `Bearer ${token}`, // Include token if required by your API
+          },
+        });
         if (!response.ok) {
           throw new Error('Failed to fetch trailer');
         }
@@ -39,7 +70,11 @@ const TrailerPage = () => {
       }
     };
 
-    fetchTrailer();
+    if (token) {
+      checkTokenValidity().then(() => {
+        fetchTrailer();
+      });
+    }
   }, [movieId, navigate]);
 
   useEffect(() => {
@@ -47,7 +82,7 @@ const TrailerPage = () => {
 
     if (isPlaying && controlsVisible) {
       fadeOutTimer = setTimeout(() => {
-        setControlsVisible(false); // Hide controls after 4 seconds
+        setControlsVisible(false); // Hide controls after 2.5 seconds
       }, 2500);
     }
 
@@ -184,26 +219,32 @@ const TrailerPage = () => {
           className="progress-bar"
         />
       </div>
-     
-        
+      <div className="button-container">
         <div className="volume-control">
-          <button onClick={handleMute} className="mute">
+          <span className="time-display">{currentTime} / {duration}</span>
+          <button onClick={handlePlayPause} className="play-pause" aria-label="Play/Pause">
+            {isPlaying ? '❚❚' : '▶'}
+          </button>
+
+          <button onClick={handleMute} className="mute" aria-label="Mute/Unmute">
             {isMuted ? '🔇' : '🔊'}
           </button>
-          <button onClick={handlePlayPause} className="play-pause">
-          {isPlaying ? '❚❚' : '▶'}
-        </button>
-          <button onClick={toggleFullScreen} className="fullscreen">
-          {isFullScreen ? '⤓' : '⤢'}
-        </button>
-   
-        
+
+          <button onClick={toggleFullScreen} className="fullscreen" aria-label="Toggle Fullscreen">
+            {isFullScreen ? '⤓' : '⤢'}
+          </button>
+        </div>
       </div>
     </div>
   );
 
   return (
-    <div className="container" ref={containerRef} onDoubleClick={handleDoubleTap} onClick={handleSingleTap}>
+    <div
+      className="container"
+      ref={containerRef}
+      onDoubleClick={handleDoubleTap}
+      onClick={handleSingleTap}
+    >
       {trailerUrl ? (
         <div className="video-container" onClick={handleContainerClick}>
           <video
@@ -213,7 +254,13 @@ const TrailerPage = () => {
             onTimeUpdate={updateProgress}
             onLoadedMetadata={handleLoadedMetadata}
             controls={false}
+            controlsList="nodownload nofullscreen noremoteplayback"
+            disablePictureInPicture
+            onContextMenu={(e) => e.preventDefault()} // Disable right-click context menu
+            className="video-element"
           />
+          {/* Overlay to prevent direct interactions that might lead to downloading */}
+          <div className="video-overlay" />
           <ControlPanel />
         </div>
       ) : error ? (

@@ -228,31 +228,31 @@ const TrailerPage = () => {
         />
       </div>
       <div className="button-container">
-       
         <div className="volume-control">
+          <span className="time-display">{currentTime} / {duration}</span>
+          <button onClick={handlePlayPause} className="play-pause" aria-label="Play/Pause">
+            {isPlaying ? '❚❚' : '▶'}
+          </button>
 
-        <span className="time-display">{currentTime} / {duration}</span>
-        <button onClick={handlePlayPause} className="play-pause">
-          {isPlaying ? '❚❚' : '▶'}
-        </button>
-
-        <button onClick={handleMute} className="mute">
+          <button onClick={handleMute} className="mute" aria-label="Mute/Unmute">
             {isMuted ? '🔇' : '🔊'}
           </button>
 
-          <button onClick={toggleFullScreen} className="fullscreen">
-          {isFullScreen ? '⤓' : '⤢'}
-        </button>
-          
+          <button onClick={toggleFullScreen} className="fullscreen" aria-label="Toggle Fullscreen">
+            {isFullScreen ? '⤓' : '⤢'}
+          </button>
         </div>
-        
-        
       </div>
     </div>
   );
 
   return (
-    <div className="container" ref={containerRef} onDoubleClick={handleDoubleTap} onClick={handleSingleTap}>
+    <div
+      className="container"
+      ref={containerRef}
+      onDoubleClick={handleDoubleTap}
+      onClick={handleSingleTap}
+    >
       {trailerUrl ? (
         <div className="video-container" onClick={handleContainerClick}>
           <video
@@ -262,7 +262,13 @@ const TrailerPage = () => {
             onTimeUpdate={updateProgress}
             onLoadedMetadata={handleLoadedMetadata}
             controls={false}
+            controlsList="nodownload nofullscreen noremoteplayback"
+            disablePictureInPicture
+            onContextMenu={(e) => e.preventDefault()} // Disable right-click context menu
+            className="video-element"
           />
+          {/* Overlay to prevent direct interactions that might lead to downloading */}
+          <div className="video-overlay" />
           <ControlPanel />
         </div>
       ) : error ? (
