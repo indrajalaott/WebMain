@@ -228,27 +228,25 @@ const TrailerPage = () => {
         />
       </div>
       <div className="button-container">
+       
+        <div className="volume-control">
+
+        <span className="time-display">{currentTime} / {duration}</span>
         <button onClick={handlePlayPause} className="play-pause">
           {isPlaying ? '❚❚' : '▶'}
         </button>
-        <div className="volume-control">
-          <button onClick={handleMute} className="mute">
+
+        <button onClick={handleMute} className="mute">
             {isMuted ? '🔇' : '🔊'}
           </button>
-          <input
-            type="range"
-            min="0"
-            max="1"
-            step="0.1"
-            value={volume}
-            onChange={handleVolumeChange}
-            className="volume-slider"
-          />
-        </div>
-        <span className="time-display">{currentTime} / {duration}</span>
-        <button onClick={toggleFullScreen} className="fullscreen">
+
+          <button onClick={toggleFullScreen} className="fullscreen">
           {isFullScreen ? '⤓' : '⤢'}
         </button>
+          
+        </div>
+        
+        
       </div>
     </div>
   );
