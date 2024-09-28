@@ -185,17 +185,19 @@ const TrailerPage = () => {
         />
       </div>
       <div className="button-container">
-        <button onClick={handlePlayPause} className="play-pause">
-          {isPlaying ? '❚❚' : '▶'}
-        </button>
+        
         <div className="volume-control">
           <button onClick={handleMute} className="mute">
             {isMuted ? '🔇' : '🔊'}
           </button>
-        </div>
-        <button onClick={toggleFullScreen} className="fullscreen">
+          <button onClick={handlePlayPause} className="play-pause">
+          {isPlaying ? '❚❚' : '▶'}
+        </button>
+          <button onClick={toggleFullScreen} className="fullscreen">
           {isFullScreen ? '⤓' : '⤢'}
         </button>
+        </div>
+        
       </div>
     </div>
   );
