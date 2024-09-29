@@ -74,14 +74,39 @@ const CheckoutPage = () => {
 
     console.log(data);
     var options = {
-        "key": "rzp_live_M0X50Vu0ZFK1WK", // Your live Razorpay key
-        "amount": data.amount, // Amount from the response
-        "currency": data.currency, // Currency from the response
-        "name": "Indrajala Movie Makers LLP", // Your business name
-        "description": "Subscription", // Description of the transaction
-         "order_id": data.orderId, // Order ID from the response
-        "callback_url": "https://api.indrajala.in/api/pay/checkstatus",
-        "prefill": {
+        key: "rzp_live_M0X50Vu0ZFK1WK", // Your live Razorpay key
+        amount: data.amount, // Amount from the response
+        currency: data.currency, // Currency from the response
+        name: "Indrajala Movie Makers LLP", // Your business name
+        description: "Subscription", // Description of the transaction
+        order_id: data.orderId, // Order ID from the response
+        handler: function (response) {
+          // Make a POST request to check the status
+          fetch("https://api.indrajala.in/api/pay/checkstatus", {
+              method: "POST",
+              headers: {
+                  "Content-Type": "application/json"
+              },
+              body: JSON.stringify({
+                  razorpay_order_id: response.razorpay_order_id,
+                  razorpay_payment_id: response.razorpay_payment_id,
+                  razorpay_signature: response.razorpay_signature
+              })
+          })
+          .then(res => res.json())
+          .then(data => {
+              if (data.redirect) {
+                  // Redirect the user to the provided URL
+                  window.location.href = data.redirect;
+              } else {
+                  console.log('Unexpected response:', data);
+              }
+          })
+          .catch(error => {
+              console.error('Error:', error);
+          });
+      },
+        prefill: {
           "name": formData.Name, // Using the user's input from the form
           "email": formData.Email, // Using the user's input from the form
           "contact": formData.PhoneNumber // Using the user's input from the form
