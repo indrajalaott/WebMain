@@ -37,9 +37,9 @@ const LoginPage = () => {
 
       const data = await response.json();
       
-      console.log('API Response:', data); // Log the response for debugging
+     
 
-      if (data.token && data.expiryDate) {
+      if (data.token) {
         localStorage.setItem('token', data.token);
         
         navigate('/Home');
