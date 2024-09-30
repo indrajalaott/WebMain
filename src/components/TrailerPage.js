@@ -26,31 +26,31 @@ const TrailerPage = () => {
       return;
     }
 
-    // Check token validity using API
-    const checkTokenValidity = async () => {
-      try {
-        const response = await fetch('https://api.indrajala.in/api/user/checkexp', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ token }),
-        });
+    // // Check token validity using API
+    // const checkTokenValidity = async () => {
+    //   try {
+    //     const response = await fetch('https://api.indrajala.in/api/user/checkexp', {
+    //       method: 'POST',
+    //       headers: {
+    //         'Content-Type': 'application/json',
+    //       },
+    //       body: JSON.stringify({ token }),
+    //     });
 
-        const data = await response.json();
+    //     const data = await response.json();
 
-        if (response.ok && data.isValid) {
-          console.log('Token is valid');
-        } else {
-          setError('Token has expired');
-          navigate('/');
-        }
-      } catch (error) {
-        console.error('Error checking token validity:', error);
-        setError('Error validating token');
-        navigate('/');
-      }
-    };
+    //     if (response.ok && data.isValid) {
+    //       console.log('Token is valid');
+    //     } else {
+    //       setError('Token has expired');
+    //       navigate('/');
+    //     }
+    //   } catch (error) {
+    //     console.error('Error checking token validity:', error);
+    //     setError('Error validating token');
+    //     navigate('/');
+    //   }
+    // };
 
     const fetchTrailer = async () => {
       try {
