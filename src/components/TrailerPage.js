@@ -21,10 +21,10 @@ const TrailerPage = () => {
   useEffect(() => {
     const viewIdT = localStorage.getItem('viewIdT');
     const token = localStorage.getItem('token');
-    if (!token) {
-      navigate('/');
-      return;
-    }
+    // if (!token) {
+    //   navigate('/');
+    //   return;
+    // }
 
     // // Check token validity using API
     // const checkTokenValidity = async () => {
