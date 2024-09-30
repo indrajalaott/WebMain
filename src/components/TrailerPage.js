@@ -71,9 +71,9 @@ const TrailerPage = () => {
     };
 
     if (token) {
-      checkTokenValidity().then(() => {
+      
         fetchTrailer();
-      });
+      
     }
   }, [movieId, navigate]);
 
