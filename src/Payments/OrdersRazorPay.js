@@ -98,13 +98,22 @@ const CheckoutPage = () => {
 
                 const verifyData = await res.json();
 
-                if (verifyData.message) {
-                    toast.success(verifyData.message)
-                }
-            } catch (error) {
-                console.log(error);
-            }
-        },
+                  if (verifyData.success) {
+                      toast.success(verifyData.message);
+                      // Redirect to Home on successful payment verification
+                      window.location.href = "https://indrajala.in/Home";
+                  } else {
+                      toast.error(verifyData.message);
+                      // Redirect to Broke page on failure
+                      window.location.href = "https://indrajala.in/Broke";
+                  }
+              } catch (error) {
+                  console.log(error);
+                  toast.error("Payment verification failed, please try again.");
+                  // Redirect to Broke page on any error
+                  window.location.href = "https://indrajala.in/Broke";
+              }
+          },
         theme: {
             color: "#5f63b8"
         }
