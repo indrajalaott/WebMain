@@ -22,6 +22,9 @@ import Checkout from './Payments/CheckOutInd';
 import RazorPay from './Payments/OrdersRazorPay';
 import Broke from './Payments/Broken';
 
+import PayInd from './Payments/AppPayInd';
+import PayNonInd from './Payments/AppPayNonIND';
+
 const App = () => {
   return (
     <ThemeProvider theme={theme}>
@@ -51,6 +54,11 @@ const App = () => {
           <Route path="/movie/:url" element={<MovieDetailPage />} />
           <Route path="/trailer/*" element={<TrailerPage />} /> 
           <Route path="/trailer/:movieId" element={<TrailerPage />} />
+
+
+          <Route path="/DoPayIndian" element={<PayInd/>} />    
+          <Route path="/DoPayNonIndian" element={<PayNonInd/>} />
+
 
     
           
