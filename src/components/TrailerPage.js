@@ -20,7 +20,7 @@ const TrailerPage = () => {
 
   useEffect(() => {
     const viewIdT = localStorage.getItem('viewIdT');
-    const token = localStorage.getItem('token');
+   
     // if (!token) {
     //   navigate('/');
     //   return;
@@ -55,9 +55,7 @@ const TrailerPage = () => {
     const fetchTrailer = async () => {
       try {
         const response = await fetch(`https://api.indrajala.in/api/user/PlayTrailer/${viewIdT}`, {
-          headers: {
-            'Authorization': `Bearer ${token}`, // Include token if required by your API
-          },
+          
         });
         if (!response.ok) {
           throw new Error('Failed to fetch trailer');
@@ -70,7 +68,7 @@ const TrailerPage = () => {
       }
     };
 
-    if (token) {
+    if (viewIdT) {
       
         fetchTrailer();
       
