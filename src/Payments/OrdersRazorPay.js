@@ -54,13 +54,18 @@ const CheckoutPage = () => {
         body: JSON.stringify(paymentData),
       });
 
+      // Check if response is 404 or any other unsuccessful status
+      if (response.status === 404) {
+        setErrorMessage("Plan not found or service unavailable. Please try again later.");
+        return;
+      }
+
       const result = await response.json();
       console.log('Order Creation Response:', result);
-      handlePaymentVerify(result)
 
       if (response.ok) {
         setResponseMessage('Order created successfully. Proceed with payment.');
-        // Here you would typically redirect to a payment gateway or show payment options
+        handlePaymentVerify(result);
       } else {
         setErrorMessage(result.message || "An error occurred while creating the order. Please try again.");
       }
@@ -72,58 +77,51 @@ const CheckoutPage = () => {
   };
 
   const handlePaymentVerify = async (data) => {
-
     console.log(data);
     const options = {
-        key: "rzp_live_M0X50Vu0ZFK1WK",
-        amount: data.amount,
-        currency: data.currency,
-        name: "Indrajala Movie Makers LLP",
-        description: "Suscribion ",
-        order_id: data.id,
-        handler: async (response) => {
-            console.log("response", response)
-            try {
-              const res = await fetch('https://api.indrajala.in/api/pay/verifyPayment', {
-                method: 'POST',
-                    headers: {
-                        'content-type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        razorpay_order_id: response.razorpay_order_id,
-                        razorpay_payment_id: response.razorpay_payment_id,
-                        razorpay_signature: response.razorpay_signature,
-                    })
-                })
+      key: "rzp_live_M0X50Vu0ZFK1WK",
+      amount: data.amount,
+      currency: data.currency,
+      name: "Indrajala Movie Makers LLP",
+      description: "Subscription",
+      order_id: data.id,
+      handler: async (response) => {
+        console.log("response", response);
+        try {
+          const res = await fetch('https://api.indrajala.in/api/pay/verifyPayment', {
+            method: 'POST',
+            headers: {
+              'content-type': 'application/json'
+            },
+            body: JSON.stringify({
+              razorpay_order_id: response.razorpay_order_id,
+              razorpay_payment_id: response.razorpay_payment_id,
+              razorpay_signature: response.razorpay_signature,
+            })
+          });
 
-                const verifyData = await res.json();
+          const verifyData = await res.json();
 
-                  if (verifyData.success) {
-                      toast.success(verifyData.message);
-                      // Redirect to Home on successful payment verification
-                      window.location.href = "https://indrajala.in/Home";
-                  } else {
-                      toast.error(verifyData.message);
-                      // Redirect to Broke page on failure
-                      window.location.href = "https://indrajala.in/Broke";
-                  }
-              } catch (error) {
-                  console.log(error);
-                  toast.error("Payment verification failed, please try again.");
-                  // Redirect to Broke page on any error
-                  window.location.href = "https://indrajala.in/Broke";
-              }
-          },
-        theme: {
-            color: "#5f63b8"
+          if (verifyData.success) {
+            toast.success(verifyData.message);
+            window.location.href = "https://indrajala.in/Home";
+          } else {
+            toast.error(verifyData.message);
+            window.location.href = "https://indrajala.in/Broke";
+          }
+        } catch (error) {
+          console.log(error);
+          toast.error("Payment verification failed, please try again.");
+          window.location.href = "https://indrajala.in/Broke";
         }
+      },
+      theme: {
+        color: "#5f63b8"
+      }
     };
     const rzp1 = new window.Razorpay(options);
     rzp1.open();
-};
-
-
-
+  };
 
   return (
     <div className="checkout-page">

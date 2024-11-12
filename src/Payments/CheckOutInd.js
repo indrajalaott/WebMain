@@ -55,11 +55,10 @@ const CheckoutPage = () => {
       });
 
       const result = await response.json();
-      handlePaymentVerify(result)
 
       if (response.ok) {
         setResponseMessage('Order created successfully. Proceed with payment.');
-        // Here you would typically redirect to a payment gateway or show payment options
+        handlePaymentVerify(result);
       } else {
         setErrorMessage(result.message || "An error occurred while creating the order. Please try again.");
       }
@@ -71,61 +70,50 @@ const CheckoutPage = () => {
   };
 
   const handlePaymentVerify = async (data) => {
-
-    console.log(data);
     var options = {
-        key: "rzp_live_M0X50Vu0ZFK1WK", // Your live Razorpay key
-        amount: data.amount, // Amount from the response
-        currency: data.currency, // Currency from the response
-        name: "Indrajala Movie Makers LLP", // Your business name
-        description: "Subscription", // Description of the transaction
-        order_id: data.orderId, // Order ID from the response
-        handler: function (response) {
-          // Make a POST request to check the status
-          fetch("https://api.indrajala.in/api/pay/checkstatus", {
-              method: "POST",
-              headers: {
-                  "Content-Type": "application/json"
-              },
-              body: JSON.stringify({
-                  razorpay_order_id: response.razorpay_order_id,
-                  razorpay_payment_id: response.razorpay_payment_id,
-                  razorpay_signature: response.razorpay_signature
-              })
+      key: "rzp_live_M0X50Vu0ZFK1WK",
+      amount: data.amount,
+      currency: data.currency,
+      name: "Indrajala Movie Makers LLP",
+      description: "Subscription",
+      order_id: data.orderId,
+      handler: function (response) {
+        fetch("https://api.indrajala.in/api/pay/checkstatus", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            razorpay_order_id: response.razorpay_order_id,
+            razorpay_payment_id: response.razorpay_payment_id,
+            razorpay_signature: response.razorpay_signature
           })
-          .then(res => res.json())
-          .then(data => {
-              if (data.redirect) {
-                  // Redirect the user to the provided URL
-                  window.location.href = data.redirect;
-              } else {
-                  console.log('Unexpected response:', data);
-              }
-          })
-          .catch(error => {
-              console.error('Error:', error);
-          });
+        })
+        .then(res => res.json())
+        .then(data => {
+          if (data.redirect) {
+            window.location.href = data.redirect;
+          } else {
+            console.log('Unexpected response:', data);
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
       },
-        prefill: {
-          "name": formData.Name, // Using the user's input from the form
-          "email": formData.Email, // Using the user's input from the form
-          "contact": formData.PhoneNumber // Using the user's input from the form
+      prefill: {
+        "name": formData.Name,
+        "email": formData.Email,
+        "contact": formData.PhoneNumber
       },
-        theme: {
-            color: "#5f63b8" // Theme color for the Razorpay checkout UI
-        }
+      theme: {
+        color: "#5f63b8"
+      }
     };
 
     var rzp1 = new window.Razorpay(options);
-
-
-    // Trigger the payment modal on button click
     rzp1.open();
-};
-
-
-
-
+  };
 
   return (
     <div className="checkout-page">

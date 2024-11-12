@@ -58,6 +58,7 @@ const SubscriptionPage = () => {
     <div className="subscription-page">
       
       <div className="subscription-container">
+ 
         <h1>The OTT of Your Fantasies</h1>
         <div className="toggle-container">
           <label className="switch">
